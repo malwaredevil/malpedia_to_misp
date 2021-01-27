@@ -8,15 +8,26 @@ fi
 _RANDOM_PASSWORD=$(date +%s | sha256sum | base64 | head -c 32)
 _EMPTY_STRING="empty"
 
-_MISP_KEY_INPUT="${1:-$_EMPTY_STRING}"
-_MISP_URL_INPUT="${2:-$_EMPTY_STRING}"
+# _MISP_KEY_INPUT="${1:-$_EMPTY_STRING}"
+# _MISP_URL_INPUT="${2:-$_EMPTY_STRING}"
+# _MALPEDIA_KEY_INPUT="${3:-$_EMPTY_STRING}"
+# _POSTGRES_HOST_INPUT="${4:-localhost}"
+# _POSTGRES_PORT_INPUT="${5:-5432}"
+# _POSTGRES_USER_INPUT="${6:-mptomisp}"
+# _POSTGRES_PASSWORD_INPUT="${7:-$_RANDOM_PASSWORD}"
+# _MALPEDIA_USER_INPUT="${8:-$_EMPTY_STRING}"
+# _MALPEDIA_PASSWORD_INPUT="${9:-$_EMPTY_STRING}"
+
+_MISP_KEY_INPUT="${_EMPTY_STRING}"
+_MISP_URL_INPUT="${_EMPTY_STRING}"
 _MALPEDIA_KEY_INPUT="${3:-$_EMPTY_STRING}"
-_POSTGRES_HOST_INPUT="${4:-localhost}"
-_POSTGRES_PORT_INPUT="${5:-5432}"
-_POSTGRES_USER_INPUT="${6:-mptomisp}"
-_POSTGRES_PASSWORD_INPUT="${7:-$_RANDOM_PASSWORD}"
-_MALPEDIA_USER_INPUT="${8:-$_EMPTY_STRING}"
-_MALPEDIA_PASSWORD_INPUT="${9:-$_EMPTY_STRING}"
+_MALPEDIA_USER_INPUT="${4:-$_EMPTY_STRING}"
+_MALPEDIA_PASSWORD_INPUT="${5:-$_EMPTY_STRING}"
+_POSTGRES_HOST_INPUT="${6:-localhost}"
+_POSTGRES_PORT_INPUT="${7:-5432}"
+_POSTGRES_USER_INPUT="${8:-mptomisp}"
+_POSTGRES_PASSWORD_INPUT="${9:-$_RANDOM_PASSWORD}"
+
 
 # SEE IF ANY PARAMETERIZED ARGS ARE THERE
 while [[ $# -gt 0 ]]; do
@@ -34,7 +45,7 @@ while [[ $# -gt 0 ]]; do
             echo "    -k or --misp-url:            Must be the url of a valid MISP instance in the form of https://misp.local/."
             echo "    -u or --malpedia-key:        Must be a valid Malpedia key."
             echo "    -j or --malpedia-username:   Must be a valid Malpedia username."
-            echo "    -b or --malpedia-password:    Must be a valid Malpedia password."
+            echo "    -b or --malpedia-password:   Must be a valid Malpedia password."
             echo "    -l or --postgres-server:     IP or fqdn of PostgreSQL server (e.g. 10.10.10.10, localhost, postgres.local, etc.)"
             echo "    -t or --postgres-port:       PostgreSQL server port."
             echo "    -r or --postgres-user:       PostgreSQL server username."
