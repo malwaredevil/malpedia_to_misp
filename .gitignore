@@ -127,3 +127,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# CUSTOM
+.vscode/
+json
+misp-galaxy
+__pycache__
+pymisp.debug.log
+db/*.sqlite3
+realrun.log
+mitrefunctions.json
+.vscode*
+pymisp.debug.log
