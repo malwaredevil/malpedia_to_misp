@@ -1,4 +1,6 @@
 from copy import Error
+
+from pymisp import api
 import malpedia_client as malpediaclient
 import mitre_functions as mf
 import sanitizitation_functions as sf
@@ -556,7 +558,8 @@ def build_actor_malware_tree(threat_actor):
 
 def stageActorMalwareMeta():
     # BEGIN DOWNLOADING ALL ACTORS
-    mpClient = Authenticate()
+    mpClient = malpediaclient.Client()
+    mpClient.authenticate_by_token(apitoken=gv._MALPEDIA_KEY)
     gv._ACTORS_LIST = mpClient.list_actors()
     print("f(x) stageActorMalwareMeta: RETRIEVED LIST OF THREAT ACTORS FROM MALPEDIA")
 
