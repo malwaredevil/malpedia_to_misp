@@ -643,7 +643,7 @@ def initGlobals():
         gv._MALPEDIA_KEY = os.getenv('MALPEDIA_KEY')
         gv._MALPEDIA_USER = os.getenv('MALPEDIA_USER')
         gv._MALPEDIA_PASSWORD = os.getenv('MALPEDIA_PASSWORD')
-        print("f(x) initGlobals: KEYS SET:\n\tMISP KEY: {}\n\tMISP URL: {}\n\tMALPEDIA KEY: {}".format(gv._MISP_KEY, gv._MISP_URL, gv._MALPEDIA_KEY))
+        print("f(x) initGlobals: KEYS SET:\n\tMISP KEY: {}\n\tMISP URL: {}\n\tMALPEDIA KEY: {}\nMALPEDIA USER: {}\nMALPEDIA PWD: {}".format(gv._MISP_KEY, gv._MISP_URL, gv._MALPEDIA_KEY, gv._MALPEDIA_USER, gv._MALPEDIA_PASSWORD))
     else:
         print("f(x) initGlobals: MISP_KEY, MISP_URL, AND/OR MALPEDIA KEY. EXITING")
         return(1)
