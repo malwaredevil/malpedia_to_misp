@@ -26,10 +26,10 @@ from globals import _EXECUTOR as executor
 # AUTHENTICATE TO MALPEDIA
 def Authenticate():
     try:
-        _MALPEDIA_CLIENT = malpediaclient.Client(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
-        _MALPEDIA_CLIENT.authenticate()
-        # _MALPEDIA_CLIENT.authenticate_by_token(gv._MALPEDIA_KEY)
-        return _MALPEDIA_CLIENT
+        retClient = malpediaclient.Client()
+        retClient.authenticate(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
+        retClient.authenticate_by_token(gv._MALPEDIA_KEY)
+        return retClient
     except Exception as e:
         print("f(x) Authenticate Error: {}".format(e))
         sys.exit(e)
@@ -643,7 +643,7 @@ def initGlobals():
         gv._MALPEDIA_KEY = os.getenv('MALPEDIA_KEY')
         gv._MALPEDIA_USER = os.getenv('MALPEDIA_USER')
         gv._MALPEDIA_PASSWORD = os.getenv('MALPEDIA_PASSWORD')
-        print("f(x) initGlobals: KEYS SET:\n\tMISP KEY: {}\n\tMISP URL: {}\n\tMALPEDIA KEY: {}\nMALPEDIA USER: {}\nMALPEDIA PWD: {}".format(gv._MISP_KEY, gv._MISP_URL, gv._MALPEDIA_KEY, gv._MALPEDIA_USER, gv._MALPEDIA_PASSWORD))
+        print("f(x) initGlobals: KEYS SET:\n\tMISP KEY: {}\n\tMISP URL: {}\n\tMALPEDIA KEY: {}\n\tMALPEDIA USER: {}\n\tMALPEDIA PWD: {}".format(gv._MISP_KEY, gv._MISP_URL, gv._MALPEDIA_KEY, gv._MALPEDIA_USER, gv._MALPEDIA_PASSWORD))
     else:
         print("f(x) initGlobals: MISP_KEY, MISP_URL, AND/OR MALPEDIA KEY. EXITING")
         return(1)
