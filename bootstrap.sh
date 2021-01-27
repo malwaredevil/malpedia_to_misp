@@ -15,6 +15,8 @@ _POSTGRES_HOST_INPUT="${4:-localhost}"
 _POSTGRES_PORT_INPUT="${5:-5432}"
 _POSTGRES_USER_INPUT="${6:-mptomisp}"
 _POSTGRES_PASSWORD_INPUT="${7:-$_RANDOM_PASSWORD}"
+_MALPEDIA_USER_INPUT="${8:-$_EMPTY_STRING}"
+_MALPEDIA_PASSWORD_INPUT="${9:-$_EMPTY_STRING}"
 
 # SEE IF ANY PARAMETERIZED ARGS ARE THERE
 while [[ $# -gt 0 ]]; do
@@ -31,25 +33,31 @@ while [[ $# -gt 0 ]]; do
             echo "    -m or --misp-key:            Must be a valid MISP key."
             echo "    -k or --misp-url:            Must be the url of a valid MISP instance in the form of https://misp.local/."
             echo "    -u or --malpedia-key:        Must be a valid Malpedia key."
+            echo "    -j or --malpedia-username:   Must be a valid Malpedia username."
+            echo "    -b or --malpedia-password:    Must be a valid Malpedia password."
             echo "    -l or --postgres-server:     IP or fqdn of PostgreSQL server (e.g. 10.10.10.10, localhost, postgres.local, etc.)"
             echo "    -t or --postgres-port:       PostgreSQL server port."
             echo "    -r or --postgres-user:       PostgreSQL server username."
             echo "    -a or --postgres-password:   PostgreSQL server password."
             exit
             ;;
-        "-m"| "--misp-key" ) # process option t
+        "-m"| "--misp-key" ) 
             _MISP_KEY_INPUT="$1";  shift;;
-        "-k"| "--misp-url" ) # process option t
+        "-k"| "--misp-url" ) 
             _MISP_URL_INPUT="$1";  shift;;
-        "-u"| "--malpedia-key" ) # process option t
+        "-u"| "--malpedia-key" ) 
             _MALPEDIA_KEY_INPUT="$1";  shift;;
-        "-l"| "--postgres-server" ) # process option t
+        "-j"| "--malpedia-username" ) 
+            _MALPEDIA_USER_INPUT="$1";  shift;;
+        "-b"| "--malpedia-password" ) 
+            _MALPEDIA_PASSWORD_INPUT="$1";  shift;;                        
+        "-l"| "--postgres-server" ) 
             _POSTGRES_HOST_INPUT="$1";  shift;;
-        "-t"| "--postgres-port" ) # process option t
+        "-t"| "--postgres-port" ) 
             _POSTGRES_PORT_INPUT="$1";  shift;;
-        "-r"| "--postgres-user" ) # process option t
+        "-r"| "--postgres-user" ) 
             _POSTGRES_USER_INPUT="$1";  shift;;
-        "-a"| "--postgres-password") # process option t
+        "-a"| "--postgres-password") 
             _POSTGRES_PASSWORD_INPUT="$1";  shift;;
         * ) 
             echo "Type \"./bootstrap.sh -h\" for help."
@@ -60,7 +68,7 @@ done
 YELLOW="\033[1;33m"
 BOLD="\e[1m"
 NC="\033[0m" # No Color
-if [ "$_MISP_KEY_INPUT" = "$_EMPTY_STRING" ] || [ "$_MISP_URL_INPUT" = "$_EMPTY_STRING" ] || [ "$_MALPEDIA_KEY_INPUT" = "$_EMPTY_STRING" ]
+if [ "$_MISP_KEY_INPUT" = "$_EMPTY_STRING" ] || [ "$_MISP_URL_INPUT" = "$_EMPTY_STRING" ] || [ "$_MALPEDIA_KEY_INPUT" = "$_EMPTY_STRING" ] || [ "$_MISP_USER_INPUT" = "$_EMPTY_STRING" ] || [ "$_MISP_PASSWORD_INPUT" = "$_EMPTY_STRING" ]
 then
     echo -e " ${YELLOW}${BOLD}"
     echo "***********************************************************************************"
@@ -107,6 +115,14 @@ then
         read _MALPEDIA_KEY_INPUT
         echo " "
         echo " "
+        echo "[?] Please enter your Malpedia username: "
+        read _MALPEDIA_USER_INPUT
+        echo " "
+        echo " "
+        echo "[?] Please enter your Malpedia password: "
+        read _MALPEDIA_PASSWORD_INPUT
+        echo " "
+        echo " "                
         # echo $_POSTGRES_HOST_INPUT
         echo "[?] Please enter your PostgreSQL server (e.g. 10.10.10.10, localhost, 127.0.0.1, server.local, etc.). Default is localhost if left blank: "
         read _POSTGRES_HOST_INPUT
@@ -143,6 +159,8 @@ then
         echo "MISP KEY: $_MISP_KEY_INPUT"
         echo "MISP URL: $_MISP_URL_INPUT"
         echo "MALPEDIA KEY: $_MALPEDIA_KEY_INPUT"
+        echo "MALPEDIA USERNAME: $_MALPEDIA_USER_INPUT"
+        echo "MALPEDIA PASSWORD: $_MALPEDIA_PASSWORD_INPUT"
         echo "POSTGRESQL SERVER: $_POSTGRES_HOST_INPUT"
         echo "POSTGRESQL PORT: $_POSTGRES_PORT_INPUT"
         echo "POSTGRESQL USER: $_POSTGRES_USER_INPUT"
@@ -168,6 +186,8 @@ echo "[!] Proceeding installation with the following values."
 echo "MISP KEY: $_MISP_KEY_INPUT"
 echo "MISP URL: $_MISP_URL_INPUT"
 echo "MALPEDIA KEY: $_MALPEDIA_KEY_INPUT"
+echo "MALPEDIA USERNAME: $_MALPEDIA_USER_INPUT"
+echo "MALPEDIA PASSWORD: $_MALPEDIA_PASSWORD_INPUT"
 echo "POSTGRESQL SERVER: $_POSTGRES_HOST_INPUT"
 echo "POSTGRESQL PORT: $_POSTGRES_PORT_INPUT"
 echo "POSTGRESQL USER: $_POSTGRES_USER_INPUT"
@@ -177,6 +197,8 @@ echo "POSTGRESQL PASSWORD: $_POSTGRES_PASSWORD_INPUT"
 echo "export MISP_KEY=$_MISP_KEY_INPUT" >> /etc/bash.bashrc
 echo "export MISP_URL=$_MISP_URL_INPUT" >> /etc/bash.bashrc
 echo "export MALPEDIA_KEY=$_MALPEDIA_KEY_INPUT" >> /etc/bash.bashrc
+echo "export MALPEDIA_USER=$_MALPEDIA_USER_INPUT" >> /etc/bash.bashrc
+echo "export MALPEDIA_PASSWORD=$_MALPEDIA_PASSWORD_INPUT" >> /etc/bash.bashrc
 echo "export POSTGRES_HOST=$_POSTGRES_HOST_INPUT" >> /etc/bash.bashrc
 echo "export POSTGRES_PORT=$_POSTGRES_PORT_INPUT" >> /etc/bash.bashrc
 echo "export POSTGRES_DB=mp_to_misp_db" >> /etc/bash.bashrc
@@ -187,6 +209,8 @@ echo "export POSTGRES_PASSWORD=$_POSTGRES_PASSWORD_INPUT" >> /etc/bash.bashrc
 export MISP_KEY=$_MISP_KEY_INPUT
 export MISP_URL=$_MISP_URL_INPUT
 export MALPEDIA_KEY=$_MALPEDIA_KEY_INPUT
+export MALPEDIA_USER=$_MALPEDIA_USER_INPUT
+export MALPEDIA_PASSWORD=$_MALPEDIA_PASSWORD_INPUT
 export POSTGRES_HOST=$_POSTGRES_HOST_INPUT
 export POSTGRES_PORT=$_POSTGRES_PORT_INPUT
 export POSTGRES_DB=mp_to_misp_db
@@ -200,6 +224,8 @@ echo "[+] The following environment variables have been set. If you need to chan
 echo "    MISP_KEY=$MISP_KEY"
 echo "    MISP_URL=$MISP_URL"
 echo "    MALPEDIA_KEY=$MALPEDIA_KEY"
+echo "    MALPEDIA_USER=$MALPEDIA_USER"
+echo "    MALPEDIA_PASSWORD=$MALPEDIA_PASSWORD"
 echo "    POSTGRES_HOST=$POSTGRES_HOST"
 echo "    POSTGRES_PORT=$POSTGRES_PORT"
 echo "    POSTGRES_DB=$POSTGRES_DB"

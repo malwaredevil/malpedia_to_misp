@@ -25,11 +25,14 @@ from globals import _EXECUTOR as executor
 
 # AUTHENTICATE TO MALPEDIA
 def Authenticate():
-
-    _MALPEDIA_CLIENT = malpediaclient.Client(apitoken=gv._MALPEDIA_KEY)
-    print("f(x) Authenticate: AUTHENTICATEING TO MALPEDIA WITH TOKEN: {}".format(gv._MALPEDIA_KEY))
-    _MALPEDIA_CLIENT.authenticate_by_token(gv._MALPEDIA_KEY)
-    return _MALPEDIA_CLIENT
+    try:
+        _MALPEDIA_CLIENT = malpediaclient.Client(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
+        _MALPEDIA_CLIENT.authenticate()
+        # _MALPEDIA_CLIENT.authenticate_by_token(gv._MALPEDIA_KEY)
+        return _MALPEDIA_CLIENT
+    except Exception as e:
+        print("f(x) Authenticate Error: {}".format(e))
+        sys.exit(e)
 
 # CHECK IF IS A VALID DATE
 def valid_date(datestring):
@@ -638,6 +641,8 @@ def initGlobals():
         gv._MISP_KEY = os.getenv('MISP_KEY')
         gv._MISP_URL = os.getenv('MISP_URL')
         gv._MALPEDIA_KEY = os.getenv('MALPEDIA_KEY')
+        gv._MALPEDIA_USER = os.getenv('MALPEDIA_USER')
+        gv._MALPEDIA_PASSWORD = os.getenv('MALPEDIA_PASSWORD')
         print("f(x) initGlobals: KEYS SET:\n\tMISP KEY: {}\n\tMISP URL: {}\n\tMALPEDIA KEY: {}".format(gv._MISP_KEY, gv._MISP_URL, gv._MALPEDIA_KEY))
     else:
         print("f(x) initGlobals: MISP_KEY, MISP_URL, AND/OR MALPEDIA KEY. EXITING")
