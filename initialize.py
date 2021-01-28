@@ -1,7 +1,7 @@
 from copy import Error
 
 from pymisp import api
-import malpedia_client as mp_Client
+import malpediaclient as mp_Client
 import mitre_functions as mf
 import sanitizitation_functions as sf
 import globals as gv
