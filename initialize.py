@@ -25,16 +25,16 @@ from globals import _EXECUTOR as executor
 
 
 
-# AUTHENTICATE TO MALPEDIA
-def Authenticate():
-    try:
-        retClient = mp_Client.Client(apitoken=gv._MALPEDIA_KEY)
-        # retClient.authenticate(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
-        # retClient.authenticate_by_token(gv._MALPEDIA_KEY)
-        return retClient
-    except Exception as e:
-        print("f(x) Authenticate Error: {}".format(e))
-        sys.exit(e)
+# # AUTHENTICATE TO MALPEDIA
+# def Authenticate():
+#     try:
+#         retClient = mp_Client.Client(apitoken=gv._MALPEDIA_KEY)
+#         # retClient.authenticate(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
+#         # retClient.authenticate_by_token(gv._MALPEDIA_KEY)
+#         return retClient
+#     except Exception as e:
+#         print("f(x) Authenticate Error: {}".format(e))
+#         sys.exit(e)
 
 # CHECK IF IS A VALID DATE
 def valid_date(datestring):
@@ -121,8 +121,8 @@ def stageMalwareSpecimens():
                 continue
             with open(gv._MALPEDIA_OUTPUT + "malware/" + malware + ".json", 'w') as jsonOut:
                 print("f(x) stageMalwareSpecimens: PULLING DATA FOR MALWARE: {}".format(malware))
-                mpClient = Authenticate()
-                gv._CURRENT_FAMILY_CURRENT_SPECIMEN_DICT = mpClient.list_samples(malware)
+                with mp_Client.Client(apitoken=gv._MALPEDIA_KEY) as mpc:
+                    gv._CURRENT_FAMILY_CURRENT_SPECIMEN_DICT = mpc.list_samples(malware)
                 jsonOut.write(json.dumps(gv._CURRENT_FAMILY_CURRENT_SPECIMEN_DICT))
                 jsonOut.close()
                 tNow = time.time()
@@ -559,8 +559,11 @@ def build_actor_malware_tree(threat_actor):
 def stageActorMalwareMeta():
     # BEGIN DOWNLOADING ALL ACTORS
     print("f(x) stageActorMalwareMeta: GETTING A LIST OF THREAT ACTORS FROM MALPEDIA")
-    mpClient = Authenticate()
-    gv._ACTORS_LIST = mpClient.list_actors()
+    with mp_Client.Client(apitoken=gv._MALPEDIA_KEY) as mpc:
+
+        gv._ACTORS_LIST = mpc.list_actors()
+        print(gv._ACTORS_LIST)
+    
     print("f(x) stageActorMalwareMeta: RETRIEVED LIST OF THREAT ACTORS FROM MALPEDIA")
 
 
@@ -602,8 +605,8 @@ def stageActorMalwareMeta():
                 continue
             with open(gv._MALPEDIA_OUTPUT + "actors/" + actor_id + ".json", 'w') as jsonOut:
                 print("f(x) stageActorMalwareMeta: PULLING DATA FOR ACTOR: {}".format(actor_id))
-                mpClient = Authenticate()
-                gv._CURRENT_ACTOR_INFO_DICT = mpClient.get_actor(actor_id)
+                with mp_Client.Client(apitoken=gv._MALPEDIA_KEY) as mpc:
+                    gv._CURRENT_ACTOR_INFO_DICT = mpc.get_actor(actor_id)
                 jsonOut.write(json.dumps(gv._CURRENT_ACTOR_INFO_DICT))
                 jsonOut.close()
                 tNow = time.time()
