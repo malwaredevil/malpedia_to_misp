@@ -1,7 +1,7 @@
 from copy import Error
 
 from pymisp import api
-import malpediaclient
+import malpedia_client as mp_Client
 import mitre_functions as mf
 import sanitizitation_functions as sf
 import globals as gv
@@ -28,8 +28,8 @@ from globals import _EXECUTOR as executor
 # AUTHENTICATE TO MALPEDIA
 def Authenticate():
     try:
-        retClient = malpediaclient.Client()
-        retClient.authenticate(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
+        retClient = mp_Client.Client()
+        # retClient.authenticate(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
         retClient.authenticate_by_token(gv._MALPEDIA_KEY)
         return retClient
     except Exception as e:
@@ -559,9 +559,7 @@ def build_actor_malware_tree(threat_actor):
 def stageActorMalwareMeta():
     # BEGIN DOWNLOADING ALL ACTORS
     print("f(x) stageActorMalwareMeta: GETTING A LIST OF THREAT ACTORS FROM MALPEDIA")
-    mpClient = malpediaclient.Client()
-    # mpClient.authenticate(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
-    # mpClient.authenticate_by_token(apitoken=gv._MALPEDIA_KEY)
+    mpClient = Authenticate()
     gv._ACTORS_LIST = mpClient.list_actors()
     print("f(x) stageActorMalwareMeta: RETRIEVED LIST OF THREAT ACTORS FROM MALPEDIA")
 

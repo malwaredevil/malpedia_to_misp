@@ -6,7 +6,7 @@ if [[ "$(whoami)" != root ]]; then
   exit 1
 fi
 _RANDOM_PASSWORD=$(date +%s | sha256sum | base64 | head -c 32)
-_EMPTY_STRING="empty"
+_EMPTY_STRING=0
 
 # _MISP_KEY_INPUT="${1:-$_EMPTY_STRING}"
 # _MISP_URL_INPUT="${2:-$_EMPTY_STRING}"
@@ -57,7 +57,7 @@ while [[ $# -gt 0 ]]; do
         "-k"| "--misp-url" ) 
             _MISP_URL_INPUT="$1";  shift;;
         "-u"| "--malpedia-key" ) 
-            _MALPEDIA_KEY_INPUT="$1";  shift;;
+            _MALPEDIA_KEY_INPUT=$1;  shift;;
         "-j"| "--malpedia-username" ) 
             _MALPEDIA_USER_INPUT="$1";  shift;;
         "-b"| "--malpedia-password" ) 
