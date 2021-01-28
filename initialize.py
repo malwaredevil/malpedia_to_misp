@@ -560,8 +560,8 @@ def stageActorMalwareMeta():
     # BEGIN DOWNLOADING ALL ACTORS
     print("f(x) stageActorMalwareMeta: GETTING A LIST OF THREAT ACTORS FROM MALPEDIA")
     mpClient = malpediaclient.Client()
-    mpClient.authenticate(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
-    mpClient.authenticate_by_token(apitoken=gv._MALPEDIA_KEY)
+    # mpClient.authenticate(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
+    # mpClient.authenticate_by_token(apitoken=gv._MALPEDIA_KEY)
     gv._ACTORS_LIST = mpClient.list_actors()
     print("f(x) stageActorMalwareMeta: RETRIEVED LIST OF THREAT ACTORS FROM MALPEDIA")
 
