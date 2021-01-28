@@ -28,9 +28,9 @@ from globals import _EXECUTOR as executor
 # AUTHENTICATE TO MALPEDIA
 def Authenticate():
     try:
-        retClient = mp_Client.Client()
+        retClient = mp_Client.Client(apitoken=gv._MALPEDIA_KEY)
         # retClient.authenticate(username=gv._MALPEDIA_USER, password=gv._MALPEDIA_PASSWORD)
-        retClient.authenticate_by_token(gv._MALPEDIA_KEY)
+        # retClient.authenticate_by_token(gv._MALPEDIA_KEY)
         return retClient
     except Exception as e:
         print("f(x) Authenticate Error: {}".format(e))
