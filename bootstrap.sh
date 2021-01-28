@@ -282,14 +282,14 @@ ssh -o StrictHostKeyChecking=no git@malpedia.caad.fkie.fraunhofer.de
 service ssh restart
 
 
-# echo " "
-# echo -e "${YELLOW}${BOLD}"
-# echo "[+] Cloning and Installing Malpedia Client. Do not close even if you see \"fatal: destination path 'malpedia' already exists and is not an empty directory.\". This is normal."
-# echo -e  " ${NC}"
-# cd /opt/m2m/dependencies
-# git clone https://github.com/malpedia/malpediaclient.git || (cd /opt/m2m/dependencies/malpediaclient ; git pull) || true
-# cd /opt/m2m/dependencies/malpediaclient
-# python3 setup.py install
+echo " "
+echo -e "${YELLOW}${BOLD}"
+echo "[+] Cloning and Installing Malpedia Client. Do not close even if you see \"fatal: destination path 'malpedia' already exists and is not an empty directory.\". This is normal."
+echo -e  " ${NC}"
+cd /opt/m2m/dependencies
+git clone https://github.com/malpedia/malpediaclient.git || (cd /opt/m2m/dependencies/malpediaclient ; git pull) || true
+cd /opt/m2m/dependencies/malpediaclient
+python3 setup.py install
 
 echo " "
 echo " "
