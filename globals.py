@@ -7,7 +7,7 @@ logger = logging.getLogger('pymisp')
 logger.setLevel(logging.ERROR)
 # logging.basicConfig(level=logging.ERROR, filename="pymisp.debug.log", filemode='w', format=pymisp.FORMAT)
 # DEBUG MODE
-_DEBUG = False
+_DEBUG = True
 
 # BASE PATH OF THIS PROJECT
 _MP_TO_MISP_BASE_LOCATION = "/opt/m2m/"
