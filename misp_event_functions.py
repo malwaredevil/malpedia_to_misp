@@ -665,9 +665,11 @@ def uuidSearch (iUUID):
         if gv._DEBUG:
             print("requests.post({}, data={}, headers={}, verify={} )".format(gv._MISP_URL +  relative_path, json.dumps(body), json.dumps(headers), gv._MISP_VERIFYCERT))
         result = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers, verify=gv._MISP_VERIFYCERT )
+        lst = result.json()
         if gv._DEBUG:
-            print("f(x) uuidSearch() RESULT: {}: LEN: {}".format(result.json(), int(len(result.json()))))
-        retVal = int(len(result.json()))
+            print("f(x) uuidSearch() RESULT: {}: LEN: {}".format(result.json(), lst))
+        
+        retVal = int(len(lst))
         return retVal
     except Exception as e:
         if gv._DEBUG:
