@@ -5,6 +5,7 @@ from pymisp import MISPTag
 from pymisp import ExpandedPyMISP, MISPEvent,  ExpandedPyMISP, MISPAttribute 
 from pathlib import Path
 import glob
+import requests
 
 from urllib3.exceptions import ProtocolError
 import globals as gv
@@ -651,10 +652,16 @@ def uuidSearch (iUUID):
 
         body["uuid"] = iUUID
         retVal = 0
-        mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT)
+        headers ={}
+        headers["Authorization"] = "IC88QRVqUSPOkNP9K6M7VEF4A41OvJD7upGXzPJu"
+        headers["Accept"]="application/json" 
+        headers["Content-type"]= "application/json"
+
+        # mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT)
         # kwargs = {"uuid" : iUUID}
         # result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs,)
-        result = mispDB.direct_call(relative_path, body)
+        # result = mispDB.direct_call(relative_path, body)
+        result = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers )
         if gv._DEBUG:
             print("f(x) uuidSearch() RESULT: {}".format(result))
         retVal = int(len(result))
