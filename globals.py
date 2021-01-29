@@ -83,7 +83,7 @@ _EXECUTOR = ThreadPoolExecutor(max_workers=20)
 _THREAD_LIST = []
 
 # THREADING EXECUTOR FOR UPLOAD. HAD TO THROTTLE
-_UPLOAD_EXECUTOR = ThreadPoolExecutor(max_workers=20)
+_UPLOAD_EXECUTOR = ThreadPoolExecutor(max_workers=10)
 
 # MALPEDIA CLIENT
 _MALPEDIA_CLIENT = None
