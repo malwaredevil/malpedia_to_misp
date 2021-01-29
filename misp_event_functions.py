@@ -670,7 +670,8 @@ def uuidSearch (iUUID):
             print("f(x) uuidSearch(): RESULT: {}".format(r))
             print("f(x) uuidSearch(): RESULT: {}".format(r.text))
             print("f(x) uuidSearch(): RESULT: {}".format(r.content))
-            print("f(x) uuidSearch(): RESULT: {}".format(r.json()['response']))
+            print("f(x) uuidSearch(): RESULT: {}".format(lst))
+            print("f(x) uuidSearch(): RESULT: {}".format(len(lst)))
             print("f(x) uuidSearch(): LIST TYPE: {}".format(type(lst)))
         count = 1
         # for x in lst:
