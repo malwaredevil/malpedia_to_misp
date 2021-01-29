@@ -665,7 +665,7 @@ def uuidSearch (iUUID):
         if gv._DEBUG:
             print("f(x) uuidSearch(): requests.post({}, data={}, headers={}, verify={} )".format(gv._MISP_URL +  relative_path, json.dumps(body), json.dumps(headers), gv._MISP_VERIFYCERT))
         result = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers, verify=gv._MISP_VERIFYCERT )
-        lst = json.loads(result.json())
+        lst = result.json()
         if gv._DEBUG:
             print("f(x) uuidSearch(): TYPE: {}".format(type(lst)))
         count = 0
