@@ -73,7 +73,8 @@ def create_attribute(iCategory, iType, iValue, iIDS=1, iUUID="", iComment="", di
     
 def pushToMISP(event, iUpdate=False, mURL="", mKey="", mVerifycert="", mDebug=""):
     try:
-        mispDB = pm.ExpandedPyMISP(url=mURL, key=mKey, ssl=mVerifycert, debug=mDebug)
+        # mispDB = pm.ExpandedPyMISP(url=mURL, key=mKey, ssl=mVerifycert, debug=mDebug)
+        mispDB = pm.ExpandedPyMISP(url=mURL, key=mKey, ssl=False)
         # NEW EVENT
         if iUpdate == False:
             event.publish()
