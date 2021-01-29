@@ -73,8 +73,10 @@ def create_attribute(iCategory, iType, iValue, iIDS=1, iUUID="", iComment="", di
     
 def pushToMISP(event, iUpdate=False, mURL="", mKey="", mVerifycert="", mDebug=""):
     try:
-        # mispDB = pm.ExpandedPyMISP(url=mURL, key=mKey, ssl=mVerifycert, debug=mDebug)
-        mispDB = pm.ExpandedPyMISP(url=mURL, key=mKey, ssl=False)
+        mispDB = pm.ExpandedPyMISP(url=mURL, key=mKey, ssl=mVerifycert, debug=mDebug)
+        if gv._DEBUG:
+            print("f(x) pushToMISP(): PUSHING EVENT TO MISP: {}".format(event))
+
         # NEW EVENT
         if iUpdate == False:
             event.publish()
@@ -83,6 +85,8 @@ def pushToMISP(event, iUpdate=False, mURL="", mKey="", mVerifycert="", mDebug=""
             event.publish()
             event = mispDB.update_event(event, pythonify=True)
     except Exception as e:
+        if gv._DEBUG:
+            print("f(x) pushToMISP() ERROR: {}".format(e))
         pass    
     finally:
         print("pushToMISP: CREATED MISP EVENT: {}".format(event.info))
@@ -131,7 +135,8 @@ def pushToMISP(event, iUpdate=False, mURL="", mKey="", mVerifycert="", mDebug=""
 def pushToMISPWithAttachment(event, iPath, iUpdate=False, mURL="", mKey="", mVerifycert="", mDebug="", fo=None, peo=None, seos=None):
     try:
         mispDB = pm.ExpandedPyMISP(url=mURL, key=mKey, ssl=mVerifycert, debug=mDebug)
-        
+        if gv._DEBUG:
+            print("f(x) pushToMISPWithAttachment() EVENT: {}".format(event))
         # CREATE EVENT
         if iUpdate == False:
             event.publish()
@@ -187,10 +192,12 @@ def pushToMISPWithAttachment(event, iPath, iUpdate=False, mURL="", mKey="", mVer
             try:
                 event.publish()
                 mispDB.publish(event)
-                print("pushToMISPWithAttachment: CREATED MISP EVENT: {}".format(event.info))
+                print("f(x) pushToMISPWithAttachment: CREATED MISP EVENT: {}".format(event.info))
             except Exception as e:
                 pass
     except Exception as e:
+        if gv._DEBUG:
+            print("f(x) pushToMISPWithAttachment() ERROR: {}".format(e))
         pass
         # gv._THREAD_LIST.append(uexecutor.submit(pushToMISPWithAttachment,event, iPath, iUpdate, mURL, mKey, mVerifycert, mDebug, fo, peo, seos))
 
@@ -622,6 +629,8 @@ def createMalware(iUUID, iUpdate=False):
 
 def uuidSearch (iUUID):
     try:
+        if gv._DEBUG:
+            print("f(x) uuidSearch() UUID: {}".format(iUUID))
         retVal = 0
         mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
         kwargs = {"uuid" : iUUID}
@@ -629,6 +638,8 @@ def uuidSearch (iUUID):
         retVal = int(len(result))
         return retVal
     except Exception as e:
+        if gv._DEBUG:
+            print("f(x) uuidSearch() ERROR: {}".format(e))
         print (e)
 
 def deleteEvent(iUUID="", iEventID=""):
