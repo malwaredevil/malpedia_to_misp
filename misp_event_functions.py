@@ -668,8 +668,9 @@ def uuidSearch (iUUID):
         lst = result.json()
         count = 0
         for x in lst:
-            count += 1
-            print("f(x) uuidSearch() NEW COUNT: {}: X: {}".format(count, x))
+            if x:
+                count += 1
+                print("f(x) uuidSearch() NEW COUNT: {}: X: {}".format(count, x))
         retVal = count
         if gv._DEBUG:
             print("f(x) uuidSearch() RESULT: {}: LEN: {}".format(result.json(), count))
