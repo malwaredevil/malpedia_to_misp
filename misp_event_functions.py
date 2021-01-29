@@ -667,8 +667,8 @@ def uuidSearch (iUUID):
         result = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers, verify=gv._MISP_VERIFYCERT )
         lst = result.json()
         count = 0
-        for x in lst:
-            if x:
+        for x in result.json():
+            if x != "":
                 count += 1
                 print("f(x) uuidSearch() NEW COUNT: {}: X: {}".format(count, x))
         retVal = count
