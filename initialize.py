@@ -1383,37 +1383,37 @@ if __name__ == '__main__':
     cf.wait(gv._THREAD_LIST)
     gv._THREAD_LIST = []
 
-    # # PUSH FAMILIES TO MISP
-    # print ("f(x) INITIALIZE: CREATING MISP FAMILY EVENTS")
-    # familyUUIDs = set()
-    # familyUUIDs = db.get_parent_child_data("family")
-    # pushNewEventsIntoMisp(familyUUIDs, update=False)
-    # cf.wait(gv._THREAD_LIST)
-    # gv._THREAD_LIST = []
+    # PUSH FAMILIES TO MISP
+    print ("f(x) INITIALIZE: CREATING MISP FAMILY EVENTS")
+    familyUUIDs = set()
+    familyUUIDs = db.get_parent_child_data("family")
+    pushNewEventsIntoMisp(familyUUIDs, update=False)
+    cf.wait(gv._THREAD_LIST)
+    gv._THREAD_LIST = []
 
-    # # PUSH PATHS TO MISP
-    # print ("f(x) INITIALIZE: CREATING MISP PATH EVENTS")
-    # pathUUIDs = set()
-    # pathUUIDs = db.get_parent_child_data("path")
-    # pushNewEventsIntoMisp(pathUUIDs, update=False)
-    # cf.wait(gv._THREAD_LIST)
-    # gv._THREAD_LIST = []
+    # PUSH PATHS TO MISP
+    print ("f(x) INITIALIZE: CREATING MISP PATH EVENTS")
+    pathUUIDs = set()
+    pathUUIDs = db.get_parent_child_data("path")
+    pushNewEventsIntoMisp(pathUUIDs, update=False)
+    cf.wait(gv._THREAD_LIST)
+    gv._THREAD_LIST = []
 
-    # # PUSH MALWARE TO MISP
-    # print ("f(x) INITIALIZE: CREATING MISP MALWARE EVENTS")
-    # malwareUUIDs = set()
-    # malwareUUIDs = db.get_parent_child_data("malware")
-    # pushNewEventsIntoMisp(malwareUUIDs, update=False)
-    # cf.wait(gv._THREAD_LIST)
-    # gv._THREAD_LIST = []
+    # PUSH MALWARE TO MISP
+    print ("f(x) INITIALIZE: CREATING MISP MALWARE EVENTS")
+    malwareUUIDs = set()
+    malwareUUIDs = db.get_parent_child_data("malware")
+    pushNewEventsIntoMisp(malwareUUIDs, update=False)
+    cf.wait(gv._THREAD_LIST)
+    gv._THREAD_LIST = []
   
-    # # SANITIZE AND CLEAN DATA
-    # # EMPTY SSDEEP CORRELATIONS
-    # print("f(x) INITIALIZE: REMOVING EMPTY SSDEEP CORRELATIONS AND TO IDS FLAGS FROM INVALID CORRELATIONS")
-    # sf.removeFalsePositiveIDS()
+    # SANITIZE AND CLEAN DATA
+    # EMPTY SSDEEP CORRELATIONS
+    print("f(x) INITIALIZE: REMOVING EMPTY SSDEEP CORRELATIONS AND TO IDS FLAGS FROM INVALID CORRELATIONS")
+    sf.removeFalsePositiveIDS()
 
-    # # PUBLISH ALL EVENTS
-    # print("f(x) INITIALIZE: PUBLISHING ALL UNPUBLISHED")
-    # sf.publishUnpublished()
+    # PUBLISH ALL EVENTS
+    print("f(x) INITIALIZE: PUBLISHING ALL UNPUBLISHED")
+    sf.publishUnpublished()
 
     print("INITIALIZATION COMPLETE")
