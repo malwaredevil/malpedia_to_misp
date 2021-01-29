@@ -235,16 +235,16 @@ sleep  30s
 # echo -e  " ${NC}"
 # pip3 install --no-cache-dir -r requirements.txt
 
-echo " "
-echo -e "${YELLOW}${BOLD}"
-echo "[+] Configuring git and ssh."
-echo -e  " ${NC}"
-eval `ssh-agent -s`
-echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-service ssh restart
-ssh-add -k /root/.ssh/id_rsa
-ssh -o StrictHostKeyChecking=no git@malpedia.caad.fkie.fraunhofer.de
-service ssh restart
+# echo " "
+# echo -e "${YELLOW}${BOLD}"
+# echo "[+] Configuring git and ssh."
+# echo -e  " ${NC}"
+# eval `ssh-agent -s`
+# echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+# service ssh restart
+# ssh-add -k /root/.ssh/id_rsa
+# ssh -o StrictHostKeyChecking=no git@malpedia.caad.fkie.fraunhofer.de
+# service ssh restart
 
 
 # echo " "
