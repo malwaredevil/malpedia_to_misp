@@ -628,64 +628,75 @@ def createMalware(iUUID, iUpdate=False):
         print("f(x) createMalware: {}: {}: {}".format(exc_type, fname, exc_tb.tb_lineno))
         sys.exit(e)  
 
+# def uuidSearch (iUUID):
+#     try:
+#         if gv._DEBUG:
+#             print("f(x) uuidSearch() UUID: {}".format(iUUID))
+            
+#         relative_path = '/events/restSearch'
+#         body = {
+#             "returnFormat": "json", 
+#             "limit": 1, 
+#             "withAttachments": 0, 
+#             "metadata": 0, 
+#             "enforceWarninglist": 0, 
+#             "includeEventUuid": 0, 
+#             "includeEventTags": 0, 
+#             "sgReferenceOnly": 0, 
+#             "includeContext": 0, 
+#             "headerless": 0, 
+#             "includeSightings": 0, 
+#             "includeDecayScore": 0, 
+#             "includeCorrelations": 0
+#         }
+
+#         body["uuid"] = iUUID
+#         retVal = 0
+#         headers ={}
+#         headers["Authorization"] = "IC88QRVqUSPOkNP9K6M7VEF4A41OvJD7upGXzPJu"
+#         headers["Accept"]="application/json" 
+#         headers["Content-type"]= "application/json"
+
+#         # mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT)
+#         # kwargs = {"uuid" : iUUID}
+#         # result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs,)
+#         # result = mispDB.direct_call(relative_path, body)
+
+#         if gv._DEBUG:
+#             print("f(x) uuidSearch(): requests.post({}, data={}, headers={}, verify={} )".format(gv._MISP_URL +  relative_path, json.dumps(body), json.dumps(headers), gv._MISP_VERIFYCERT))
+#         r = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers, verify=gv._MISP_VERIFYCERT )
+#         lst = r.json()['response']
+#         if gv._DEBUG:
+#             print("f(x) uuidSearch(): RESULT: {}".format(r))
+#             print("f(x) uuidSearch(): RESULT: {}".format(r.text))
+#             print("f(x) uuidSearch(): RESULT: {}".format(r.content))
+#             print("f(x) uuidSearch(): RESULT: {}".format(lst))
+#             print("f(x) uuidSearch(): RESULT: {}".format(len(lst)))
+#             print("f(x) uuidSearch(): LIST TYPE: {}".format(type(lst)))
+#         count = 0
+#         for x in lst:
+#             # if x != []:
+#             count += 1
+#             print("f(x) uuidSearch(): NEW COUNT: {}: X: {}".format(count, x))
+#         retVal = count
+#         if gv._DEBUG:
+#             print("f(x) uuidSearch(): LEN: {}".format(count))
+#         return retVal
+#     except Exception as e:
+#         if gv._DEBUG:
+#             print("f(x) uuidSearch(): ERROR: {}".format(e))
+#         print (e)
 def uuidSearch (iUUID):
     try:
-        if gv._DEBUG:
-            print("f(x) uuidSearch() UUID: {}".format(iUUID))
-            
-        relative_path = '/events/restSearch'
-        body = {
-            "returnFormat": "json", 
-            "limit": 1, 
-            "withAttachments": 0, 
-            "metadata": 0, 
-            "enforceWarninglist": 0, 
-            "includeEventUuid": 0, 
-            "includeEventTags": 0, 
-            "sgReferenceOnly": 0, 
-            "includeContext": 0, 
-            "headerless": 0, 
-            "includeSightings": 0, 
-            "includeDecayScore": 0, 
-            "includeCorrelations": 0
-        }
-
-        body["uuid"] = iUUID
         retVal = 0
-        headers ={}
-        headers["Authorization"] = "IC88QRVqUSPOkNP9K6M7VEF4A41OvJD7upGXzPJu"
-        headers["Accept"]="application/json" 
-        headers["Content-type"]= "application/json"
-
-        # mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT)
-        # kwargs = {"uuid" : iUUID}
-        # result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs,)
-        # result = mispDB.direct_call(relative_path, body)
-
-        if gv._DEBUG:
-            print("f(x) uuidSearch(): requests.post({}, data={}, headers={}, verify={} )".format(gv._MISP_URL +  relative_path, json.dumps(body), json.dumps(headers), gv._MISP_VERIFYCERT))
-        r = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers, verify=gv._MISP_VERIFYCERT )
-        lst = r.json()['response']
-        if gv._DEBUG:
-            print("f(x) uuidSearch(): RESULT: {}".format(r))
-            print("f(x) uuidSearch(): RESULT: {}".format(r.text))
-            print("f(x) uuidSearch(): RESULT: {}".format(r.content))
-            print("f(x) uuidSearch(): RESULT: {}".format(lst))
-            print("f(x) uuidSearch(): RESULT: {}".format(len(lst)))
-            print("f(x) uuidSearch(): LIST TYPE: {}".format(type(lst)))
-        count = 0
-        for x in lst:
-            # if x != []:
-            count += 1
-            print("f(x) uuidSearch(): NEW COUNT: {}: X: {}".format(count, x))
-        retVal = count
-        if gv._DEBUG:
-            print("f(x) uuidSearch(): LEN: {}".format(count))
+        mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
+        kwargs = {"uuid" : iUUID}
+        result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs)
+        retVal = int(len(result))
         return retVal
     except Exception as e:
-        if gv._DEBUG:
-            print("f(x) uuidSearch(): ERROR: {}".format(e))
         print (e)
+
 
 def deleteEvent(iUUID="", iEventID=""):
     try:
