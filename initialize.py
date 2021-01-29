@@ -661,9 +661,10 @@ def initGlobals():
         print("f(x) initGlobals: CLONED MISP GALAXY REPO")
 
     # PULL LATEST MALPEDIA
-    print("f(x) initGlobals: PULLING MALPEDIA GITHUB")
-    git_actions.pull_malpedia_git()
-    print("f(x) initGlobals: PULLED MALPEDIA GITHUB")
+    # print("f(x) initGlobals: PULLING MALPEDIA GITHUB")
+    # git_actions.pull_malpedia_git()
+    # print("f(x) initGlobals: PULLED MALPEDIA GITHUB")
+    #TODO: UNCOMMENT ABOVE
 
     # CLONE MITRE REPO
     print("f(x) initGlobals: CLONING MITRE REPO")
@@ -675,10 +676,11 @@ def initGlobals():
         print("f(x) initGlobals: CLONED MITRE REPO")
 
 
-    # LOAD MITRE SOFTWARE
-    print("f(x) initGlobals: LOADING MITRE SOFTWARE ALIASES INTO DB")
-    mf.load_mitre_software()
-    print("f(x) initGlobals: LOADED MITRE SOFTWARE ALIASES INTO DB")
+    # # LOAD MITRE SOFTWARE
+    # print("f(x) initGlobals: LOADING MITRE SOFTWARE ALIASES INTO DB")
+    # mf.load_mitre_software()
+    # print("f(x) initGlobals: LOADED MITRE SOFTWARE ALIASES INTO DB")
+    #TODO: UNCOMMENT ABOVE
 
     # CREATE OUTPUT DIRECTORIES IF THEY DON'T EXIST
     if not os.path.exists(gv._MALPEDIA_OUTPUT):
