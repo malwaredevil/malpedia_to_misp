@@ -663,21 +663,23 @@ def uuidSearch (iUUID):
         # result = mispDB.direct_call(relative_path, body)
 
         if gv._DEBUG:
-            print("requests.post({}, data={}, headers={}, verify={} )".format(gv._MISP_URL +  relative_path, json.dumps(body), json.dumps(headers), gv._MISP_VERIFYCERT))
+            print("f(x) uuidSearch(): requests.post({}, data={}, headers={}, verify={} )".format(gv._MISP_URL +  relative_path, json.dumps(body), json.dumps(headers), gv._MISP_VERIFYCERT))
         result = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers, verify=gv._MISP_VERIFYCERT )
-        lst = result.json()
+        lst = json.loads(result.json())
+        if gv._DEBUG:
+            print("f(x) uuidSearch(): TYPE: {}".format(type(lst)))
         count = 0
-        for x in result.json():
+        for x in lst:
             if x != "":
                 count += 1
-                print("f(x) uuidSearch() NEW COUNT: {}: X: {}".format(count, x))
+                print("f(x) uuidSearch(): NEW COUNT: {}: X: {}".format(count, x))
         retVal = count
         if gv._DEBUG:
-            print("f(x) uuidSearch() RESULT: {}: LEN: {}".format(result.json(), count))
+            print("f(x) uuidSearch(): RESULT: {}: LEN: {}".format(result.json(), count))
         return retVal
     except Exception as e:
         if gv._DEBUG:
-            print("f(x) uuidSearch() ERROR: {}".format(e))
+            print("f(x) uuidSearch(): ERROR: {}".format(e))
         print (e)
 
 def deleteEvent(iUUID="", iEventID=""):
