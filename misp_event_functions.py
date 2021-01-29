@@ -669,10 +669,10 @@ def uuidSearch (iUUID):
         count = 0
         for x in lst:
             count += 1
-            print("NEW COUNT: {}: X: {}".format(count, x))
+            print("f(x) uuidSearch() NEW COUNT: {}: X: {}".format(count, x))
         retVal = count
         if gv._DEBUG:
-            print("f(x) uuidSearch() RESULT: {}: LEN: {}".format(result.json(), len(lst)))
+            print("f(x) uuidSearch() RESULT: {}: LEN: {}".format(result.json(), count))
         return retVal
     except Exception as e:
         if gv._DEBUG:
