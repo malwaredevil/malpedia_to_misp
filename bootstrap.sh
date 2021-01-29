@@ -330,5 +330,6 @@ echo "**        You can run it by executing either the initialize.py            
 echo "**        or update.py files. Please read the documentation for more.            **" 
 echo "***********************************************************************************"
 echo "***********************************************************************************"
-echo -e " ${NC}"
-# exec "$@"
+# echo -e " ${NC}"
+echo "DEV MODE"
+exec "$@"
