@@ -16,7 +16,7 @@ import glob
 import datetime
 import uuid
 import misp_galaxy_functions as mgf
-import git_actions
+# import git_actions
 import yaml
 # import threading
 import concurrent.futures as cf
@@ -651,36 +651,34 @@ def initGlobals():
     print("f(x) initGlobals: INSERTING MANUAL TAGS")
     db.insert_manual_tags()
     
-    # PULL LATEST MISP GALAXIES
-    print("f(x) initGlobals: CLONING MISP GALAXY REPO")
-    if os.path.exists(gv._MISP_GALAXY_GIT):
-        print("f(x) initGlobals: FOUND OLD  MISP GALAXY DIRECTORY. SKIPPING")
-        #shutil.rmtree(gv._MISP_GALAXY_GIT)
-    else:
-        git_actions.clone_misp_galaxy()
-        print("f(x) initGlobals: CLONED MISP GALAXY REPO")
+    # # PULL LATEST MISP GALAXIES
+    # print("f(x) initGlobals: CLONING MISP GALAXY REPO")
+    # if os.path.exists(gv._MISP_GALAXY_GIT):
+    #     print("f(x) initGlobals: FOUND OLD  MISP GALAXY DIRECTORY. SKIPPING")
+    #     #shutil.rmtree(gv._MISP_GALAXY_GIT)
+    # else:
+    #     git_actions.clone_misp_galaxy()
+    #     print("f(x) initGlobals: CLONED MISP GALAXY REPO")
 
     # PULL LATEST MALPEDIA
     # print("f(x) initGlobals: PULLING MALPEDIA GITHUB")
     # git_actions.pull_malpedia_git()
     # print("f(x) initGlobals: PULLED MALPEDIA GITHUB")
-    #TODO: UNCOMMENT ABOVE
 
-    # CLONE MITRE REPO
-    print("f(x) initGlobals: CLONING MITRE REPO")
-    if os.path.exists(gv._MITRE_GIT):
-        print("f(x) initGlobals: FOUND OLD MITRE DIRECTORY. SKIPPING")
-        #shutil.rmtree(gv._MISP_GALAXY_GIT)
-    else:
-        git_actions.clone_mitre_git()
-        print("f(x) initGlobals: CLONED MITRE REPO")
+    # # CLONE MITRE REPO
+    # print("f(x) initGlobals: CLONING MITRE REPO")
+    # if os.path.exists(gv._MITRE_GIT):
+    #     print("f(x) initGlobals: FOUND OLD MITRE DIRECTORY. SKIPPING")
+    #     #shutil.rmtree(gv._MISP_GALAXY_GIT)
+    # else:
+    #     git_actions.clone_mitre_git()
+    #     print("f(x) initGlobals: CLONED MITRE REPO")
 
 
-    # # LOAD MITRE SOFTWARE
-    # print("f(x) initGlobals: LOADING MITRE SOFTWARE ALIASES INTO DB")
-    # mf.load_mitre_software()
-    # print("f(x) initGlobals: LOADED MITRE SOFTWARE ALIASES INTO DB")
-    #TODO: UNCOMMENT ABOVE
+    # LOAD MITRE SOFTWARE
+    print("f(x) initGlobals: LOADING MITRE SOFTWARE ALIASES INTO DB")
+    mf.load_mitre_software()
+    print("f(x) initGlobals: LOADED MITRE SOFTWARE ALIASES INTO DB")
 
     # CREATE OUTPUT DIRECTORIES IF THEY DON'T EXIST
     if not os.path.exists(gv._MALPEDIA_OUTPUT):
