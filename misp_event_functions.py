@@ -661,7 +661,7 @@ def uuidSearch (iUUID):
         # kwargs = {"uuid" : iUUID}
         # result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs,)
         # result = mispDB.direct_call(relative_path, body)
-        result = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers )
+        result = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers, verify=False )
         if gv._DEBUG:
             print("f(x) uuidSearch() RESULT: {}".format(result))
         retVal = int(len(result))
