@@ -632,7 +632,7 @@ def uuidSearch (iUUID):
     try:
         if gv._DEBUG:
             print("f(x) uuidSearch() UUID: {}".format(iUUID))
-            print ("pm.ExpandedPyMISP(url={}, key={}, ssl={}, debug={})".format(gv._MISP_URL, gv._MISP_KEY, gv._MISP_VERIFYCERT, gv._DEBUG))
+            
         relative_path = '/events/restSearch'
         body = {
             "returnFormat": "json", 
@@ -661,7 +661,10 @@ def uuidSearch (iUUID):
         # kwargs = {"uuid" : iUUID}
         # result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs,)
         # result = mispDB.direct_call(relative_path, body)
-        result = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers, verify=False )
+
+        if gv._DEBUG:
+            print("requests.post({}, data={}, headers={}, verify={} )".format(gv._MISP_URL +  relative_path, json.dumps(body), json.dumps(headers), gv._MISP_VERIFYCERT))
+        result = requests.post(gv._MISP_URL +  relative_path, data=json.dumps(body), headers=headers, verify=gv._MISP_VERIFYCERT )
         if gv._DEBUG:
             print("f(x) uuidSearch() RESULT: {}".format(result))
         retVal = int(len(result))
