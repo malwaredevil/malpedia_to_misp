@@ -632,10 +632,31 @@ def uuidSearch (iUUID):
         if gv._DEBUG:
             print("f(x) uuidSearch() UUID: {}".format(iUUID))
             print ("pm.ExpandedPyMISP(url={}, key={}, ssl={}, debug={})".format(gv._MISP_URL, gv._MISP_KEY, gv._MISP_VERIFYCERT, gv._DEBUG))
+        relative_path = '/events/restSearch'
+        body = {
+            "returnFormat": "json", 
+            "limit": 1, 
+            "withAttachments": 0, 
+            "metadata": 0, 
+            "enforceWarninglist": 0, 
+            "includeEventUuid": 0, 
+            "includeEventTags": 0, 
+            "sgReferenceOnly": 0, 
+            "includeContext": 0, 
+            "headerless": 0, 
+            "includeSightings": 0, 
+            "includeDecayScore": 0, 
+            "includeCorrelations": 0
+        }
+
+        body["uuid"] = iUUID
         retVal = 0
-        mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
-        kwargs = {"uuid" : iUUID}
-        result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs,)
+        mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT)
+        # kwargs = {"uuid" : iUUID}
+        # result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs,)
+        result = mispDB.direct_call(relative_path, body)
+        if gv._DEBUG:
+            print("f(x) uuidSearch() RESULT: {}".format(result))
         retVal = int(len(result))
         return retVal
     except Exception as e:
@@ -645,7 +666,7 @@ def uuidSearch (iUUID):
 
 def deleteEvent(iUUID="", iEventID=""):
     try:
-        mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
+        mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT)
         event_id = ""
         
         if iUUID != "":
