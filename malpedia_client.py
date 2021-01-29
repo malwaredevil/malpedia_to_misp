@@ -211,10 +211,7 @@ class Client():
 
     def __make_api_call(self, path, method='GET', files=None, data=None, raw=False):
         apicall_path = "https://malpedia.caad.fkie.fraunhofer.de/api/" + path.lstrip("/")
-        print("Sending: (\n\tmethod:{} \n\tapicall_path:{} \n\tauth={} \n\theaders={} \n\tfiles={} \n\tdata={}".format(method, apicall_path, self.__credentials, self.__headers, files, data))
         response = requests.request(method, apicall_path, auth=self.__credentials, headers=self.__headers, files=files, data=data)
-       
-        print("f(x) malpedia_client: __make_api_call:\n {}".format(response.json()))
         if response.status_code == 200:
             if raw: return response.content
             return response.json()

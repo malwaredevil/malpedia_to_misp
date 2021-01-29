@@ -210,30 +210,30 @@ echo "    POSTGRES_PASSWORD=$POSTGRES_PASSWORD"
 echo -e  " ${NC}"
 
 sleep  30s
-echo " "
-echo -e "${YELLOW}${BOLD}"
-echo "[+] Installing requirements." 
-echo -e  " ${NC}"
-_BUILD_DEPS="build-essential"
-_APP_DEPS="python3 python3-dev python3-venv python3-pip curl git ssh gcc openssh-client supervisor wget python3-setuptools python3-pip libfuzzy-dev ssdeep libpq-dev postgresql-client supervisor"
+# echo " "
+# echo -e "${YELLOW}${BOLD}"
+# echo "[+] Installing requirements." 
+# echo -e  " ${NC}"
+# _BUILD_DEPS="build-essential"
+# _APP_DEPS="python3 python3-dev python3-venv python3-pip curl git ssh gcc openssh-client supervisor wget python3-setuptools python3-pip libfuzzy-dev ssdeep libpq-dev postgresql-client supervisor"
 
-apt-get update && apt-get install -y $_BUILD_DEPS $_APP_DEPS && \
-apt-get clean -y && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* && apt-get purge -y --auto-remove $_BUILD_DEPS && \
-rm -rf /usr/share/doc && rm -rf /usr/share/man
-echo  "SERVER $POSTGRES_HOST"
-if [ "$POSTGRES_HOST" = "localhost" ]
-then
-    sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-    apt-get update
-    apt-get -y install postgresql
-fi
+# apt-get update && apt-get install -y $_BUILD_DEPS $_APP_DEPS && \
+# apt-get clean -y && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* && apt-get purge -y --auto-remove $_BUILD_DEPS && \
+# rm -rf /usr/share/doc && rm -rf /usr/share/man
+# echo  "SERVER $POSTGRES_HOST"
+# if [ "$POSTGRES_HOST" = "localhost" ]
+# then
+#     sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+#     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+#     apt-get update
+#     apt-get -y install postgresql
+# fi
 
-echo " "
-echo -e "${YELLOW}${BOLD}"
-echo "[+] Installing Python requirements."
-echo -e  " ${NC}"
-pip3 install --no-cache-dir -r requirements.txt
+# echo " "
+# echo -e "${YELLOW}${BOLD}"
+# echo "[+] Installing Python requirements."
+# echo -e  " ${NC}"
+# pip3 install --no-cache-dir -r requirements.txt
 
 echo " "
 echo -e "${YELLOW}${BOLD}"
@@ -247,34 +247,34 @@ ssh -o StrictHostKeyChecking=no git@malpedia.caad.fkie.fraunhofer.de
 service ssh restart
 
 
-echo " "
-echo -e "${YELLOW}${BOLD}"
-echo "[+] Cloning and Installing Malpedia Client. Do not close even if you see \"fatal: destination path 'malpedia' already exists and is not an empty directory.\". This is normal."
-echo -e  " ${NC}"
-cd /opt/m2m/dependencies
-git clone https://github.com/malpedia/malpediaclient.git || (cd /opt/m2m/dependencies/malpediaclient ; git pull) || true
-cd /opt/m2m/dependencies/malpediaclient
-python3 setup.py install
+# echo " "
+# echo -e "${YELLOW}${BOLD}"
+# echo "[+] Cloning and Installing Malpedia Client. Do not close even if you see \"fatal: destination path 'malpedia' already exists and is not an empty directory.\". This is normal."
+# echo -e  " ${NC}"
+# cd /opt/m2m/dependencies
+# git clone https://github.com/malpedia/malpediaclient.git || (cd /opt/m2m/dependencies/malpediaclient ; git pull) || true
+# cd /opt/m2m/dependencies/malpediaclient
+# python3 setup.py install
 
-echo " "
-echo " "
-cd /opt/m2m/dependencies
-echo -e "${YELLOW}${BOLD}"
-echo "[+] Cloning/Updating Malpedia To MISP Core. Do not close even if you see \"fatal: destination path 'malpedia' already exists and is not an empty directory.\". This is normal."
-echo -e  " ${NC}"
-git clone https://github.com/malwaredevil/malpedia_to_misp.git || (cd /opt/m2m/dependencies/malpedia_to_misp ; git pull) || true
+# echo " "
+# echo " "
+# cd /opt/m2m/dependencies
+# echo -e "${YELLOW}${BOLD}"
+# echo "[+] Cloning/Updating Malpedia To MISP Core. Do not close even if you see \"fatal: destination path 'malpedia' already exists and is not an empty directory.\". This is normal."
+# echo -e  " ${NC}"
+# git clone https://github.com/malwaredevil/malpedia_to_misp.git || (cd /opt/m2m/dependencies/malpedia_to_misp ; git pull) || true
 
-if [ "$POSTGRES_HOST" = "localhost" ]
-then
-    echo " "
-    echo -e "${YELLOW}${BOLD}"
-    echo "[+] Configuring PostgreSQL."
-    echo -e  " ${NC}"
-    pg_ctlcluster 13 main start
-    sudo -u postgres createdb mp_to_misp_db || echo -e "${YELLOW}${BOLD}"; echo "[!] mp_to_misp_db database found. Re-initializing.";echo -e  " ${NC}"
-    sudo -u postgres psql -U postgres -d postgres -c "CREATE USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';" || sudo -u postgres psql -U postgres -d postgres -c "alter user $POSTGRES_USER with password '$POSTGRES_PASSWORD';"
-    systemctl restart postgresql
-fi
+# if [ "$POSTGRES_HOST" = "localhost" ]
+# then
+#     echo " "
+#     echo -e "${YELLOW}${BOLD}"
+#     echo "[+] Configuring PostgreSQL."
+#     echo -e  " ${NC}"
+#     pg_ctlcluster 13 main start
+#     sudo -u postgres createdb mp_to_misp_db || echo -e "${YELLOW}${BOLD}"; echo "[!] mp_to_misp_db database found. Re-initializing.";echo -e  " ${NC}"
+#     sudo -u postgres psql -U postgres -d postgres -c "CREATE USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';" || sudo -u postgres psql -U postgres -d postgres -c "alter user $POSTGRES_USER with password '$POSTGRES_PASSWORD';"
+#     systemctl restart postgresql
+# fi
 while ! pg_isready --dbname="postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/mp_to_misp_db"; do
     sleep 5
     echo -e "${YELLOW}${BOLD}"
