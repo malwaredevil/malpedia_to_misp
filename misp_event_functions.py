@@ -201,7 +201,8 @@ def pushToMISPWithAttachment(event, iPath, iUpdate=False, mURL="", mKey="", mVer
             print("f(x) pushToMISPWithAttachment() ERROR: {}".format(e))
         pass
         # gv._THREAD_LIST.append(uexecutor.submit(pushToMISPWithAttachment,event, iPath, iUpdate, mURL, mKey, mVerifycert, mDebug, fo, peo, seos))
-
+    finally:
+        return True
 
 # CREATES AN EVENT BASED ON UUID FOUND IN PARENT CHILD TABLE
 # USES THE FOLLOWING GLOBAL VARIABLES
