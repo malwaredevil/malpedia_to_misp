@@ -256,13 +256,13 @@ sleep  30s
 # cd /opt/m2m/dependencies/malpediaclient
 # python3 setup.py install
 
-echo " "
-echo " "
-cd /opt/m2m/dependencies
-echo -e "${YELLOW}${BOLD}"
-echo "[+] Cloning/Updating Malpedia To MISP Core. Do not close even if you see \"fatal: destination path 'malpedia' already exists and is not an empty directory.\". This is normal."
-echo -e  " ${NC}"
-git clone https://github.com/malwaredevil/malpedia_to_misp.git || (cd /opt/m2m/dependencies/malpedia_to_misp ; git pull) || true
+# echo " "
+# echo " "
+# cd /opt/m2m/dependencies
+# echo -e "${YELLOW}${BOLD}"
+# echo "[+] Cloning/Updating Malpedia To MISP Core. Do not close even if you see \"fatal: destination path 'malpedia' already exists and is not an empty directory.\". This is normal."
+# echo -e  " ${NC}"
+# git clone https://github.com/malwaredevil/malpedia_to_misp.git || (cd /opt/m2m/dependencies/malpedia_to_misp ; git pull) || true
 
 # if [ "$POSTGRES_HOST" = "localhost" ]
 # then
