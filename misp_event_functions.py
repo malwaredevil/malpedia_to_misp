@@ -631,10 +631,11 @@ def uuidSearch (iUUID):
     try:
         if gv._DEBUG:
             print("f(x) uuidSearch() UUID: {}".format(iUUID))
+            print ("pm.ExpandedPyMISP(url={}, key={}, ssl={}, debug={})".format(gv._MISP_URL, gv._MISP_KEY, gv._MISP_VERIFYCERT, gv._DEBUG))
         retVal = 0
         mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
         kwargs = {"uuid" : iUUID}
-        result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs)
+        result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs,)
         retVal = int(len(result))
         return retVal
     except Exception as e:
