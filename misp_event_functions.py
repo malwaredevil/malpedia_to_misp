@@ -673,11 +673,11 @@ def uuidSearch (iUUID):
             print("f(x) uuidSearch(): RESULT: {}".format(lst))
             print("f(x) uuidSearch(): RESULT: {}".format(len(lst)))
             print("f(x) uuidSearch(): LIST TYPE: {}".format(type(lst)))
-        count = 1
-        # for x in lst:
-        #     if x != []:
-        #         count += 1
-        #         print("f(x) uuidSearch(): NEW COUNT: {}: X: {}".format(count, x))
+        count = 0
+        for x in lst:
+            if x != []:
+                count += 1
+                print("f(x) uuidSearch(): NEW COUNT: {}: X: {}".format(count, x))
         retVal = count
         if gv._DEBUG:
             print("f(x) uuidSearch(): LEN: {}".format(count))
