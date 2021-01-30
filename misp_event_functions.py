@@ -567,6 +567,9 @@ def createMalware(iUUID, iUpdate=False):
             return True
 
         event.info = name
+
+        if gv._DEBUG:
+            print("f(x) createMalware: EVENT NAME: {}".format(name))
         
         # SET VERSION
         myVersion = iPC_META["version"]
