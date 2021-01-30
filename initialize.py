@@ -1373,13 +1373,13 @@ if __name__ == '__main__':
     # print("f(x) INITIALIZE: STAGE MALWARE SPECIMENS TO INCLUDE ADDING PATHS TO THEM IN PARENT CHILD TABLE")
     # iterateStageAllFiles()
 
-    # # PUSH ACTORS TO MISP
-    # print ("f(x) INITIALIZE: CREATING MISP ACTOR EVENTS")
-    # actorUUIDs = set()
-    # actorUUIDs = db.get_parent_child_data("actor")
-    # pushNewEventsIntoMisp(actorUUIDs, update=False)
-    # cf.wait(gv._THREAD_LIST)
-    # gv._THREAD_LIST = []
+    # PUSH ACTORS TO MISP
+    print ("f(x) INITIALIZE: CREATING MISP ACTOR EVENTS")
+    actorUUIDs = set()
+    actorUUIDs = db.get_parent_child_data("actor")
+    pushNewEventsIntoMisp(actorUUIDs, update=False)
+    cf.wait(gv._THREAD_LIST)
+    gv._THREAD_LIST = []
 
     # # PUSH FAMILIES TO MISP
     # print ("f(x) INITIALIZE: CREATING MISP FAMILY EVENTS")
