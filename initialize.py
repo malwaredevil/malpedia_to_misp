@@ -1397,13 +1397,13 @@ if __name__ == '__main__':
     cf.wait(gv._THREAD_LIST)
     gv._THREAD_LIST = []
 
-    # # PUSH MALWARE TO MISP
-    # print ("f(x) INITIALIZE: CREATING MISP MALWARE EVENTS")
-    # malwareUUIDs = set()
-    # malwareUUIDs = db.get_parent_child_data("malware")
-    # pushNewEventsIntoMisp(malwareUUIDs, update=False)
-    # cf.wait(gv._THREAD_LIST)
-    # gv._THREAD_LIST = []
+    # PUSH MALWARE TO MISP
+    print ("f(x) INITIALIZE: CREATING MISP MALWARE EVENTS")
+    malwareUUIDs = set()
+    malwareUUIDs = db.get_parent_child_data("malware")
+    pushNewEventsIntoMisp(malwareUUIDs, update=False)
+    cf.wait(gv._THREAD_LIST)
+    gv._THREAD_LIST = []
   
     # # SANITIZE AND CLEAN DATA
     # # EMPTY SSDEEP CORRELATIONS
