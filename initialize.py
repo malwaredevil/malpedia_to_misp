@@ -1381,13 +1381,13 @@ if __name__ == '__main__':
     cf.wait(gv._THREAD_LIST)
     gv._THREAD_LIST = []
 
-    # # PUSH FAMILIES TO MISP
-    # print ("f(x) INITIALIZE: CREATING MISP FAMILY EVENTS")
-    # familyUUIDs = set()
-    # familyUUIDs = db.get_parent_child_data("family")
-    # pushNewEventsIntoMisp(familyUUIDs, update=False)
-    # cf.wait(gv._THREAD_LIST)
-    # gv._THREAD_LIST = []
+    # PUSH FAMILIES TO MISP
+    print ("f(x) INITIALIZE: CREATING MISP FAMILY EVENTS")
+    familyUUIDs = set()
+    familyUUIDs = db.get_parent_child_data("family")
+    pushNewEventsIntoMisp(familyUUIDs, update=False)
+    cf.wait(gv._THREAD_LIST)
+    gv._THREAD_LIST = []
 
     # # PUSH PATHS TO MISP
     # print ("f(x) INITIALIZE: CREATING MISP PATH EVENTS")
