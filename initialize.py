@@ -1409,9 +1409,13 @@ if __name__ == '__main__':
     # EMPTY SSDEEP CORRELATIONS
     print("f(x) INITIALIZE: REMOVING EMPTY SSDEEP CORRELATIONS AND TO IDS FLAGS FROM INVALID CORRELATIONS")
     sf.removeFalsePositiveIDS()
+    cf.wait(gv._THREAD_LIST)
+    gv._THREAD_LIST = []
 
     # PUBLISH ALL EVENTS
     print("f(x) INITIALIZE: PUBLISHING ALL UNPUBLISHED")
     sf.publishUnpublished()
+    cf.wait(gv._THREAD_LIST)
+    gv._THREAD_LIST = []
 
     print("INITIALIZATION COMPLETE")
