@@ -1,5 +1,5 @@
 from copy import Error
-
+import pymisp as pm
 from pymisp import api
 import malpedia_client as mp_Client
 import mitre_functions as mf
@@ -645,6 +645,18 @@ def initGlobals():
         print("f(x) initGlobals: KEYS SET:\n\tMISP KEY: {}\n\tMISP URL: {}\n\tMALPEDIA KEY: {}".format(gv._MISP_KEY, gv._MISP_URL, gv._MALPEDIA_KEY))
     else:
         print("f(x) initGlobals: MISP_KEY, MISP_URL, AND/OR MALPEDIA KEY. EXITING")
+        return(1)
+
+    print("f(x) initGlobals: TESTING CONNECTIVITY TO MISP")
+    iUUID = uuid.uuid4()
+    try:
+        # retVal = 0
+        mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
+        result = mispDB.get_user(pythonify=True)
+        print("USER RETURNED: {}".format(result))
+        
+    except Exception as e:
+        print ("FAILED")
         return(1)
 
     # ADD MANUAL TAGS
