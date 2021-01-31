@@ -2,7 +2,7 @@ import pymisp
 import logging
 import os
 from dotenv import load_dotenv
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 logger = logging.getLogger('pymisp')
 logger.setLevel(logging.ERROR)
 # logging.basicConfig(level=logging.ERROR, filename="pymisp.debug.log", filemode='w', format=pymisp.FORMAT)
@@ -83,7 +83,7 @@ _EXECUTOR = ThreadPoolExecutor(max_workers=20)
 _THREAD_LIST = []
 
 # THREADING EXECUTOR FOR UPLOAD. HAD TO THROTTLE
-_UPLOAD_EXECUTOR = ThreadPoolExecutor(max_workers=10)
+_UPLOAD_EXECUTOR = ProcessPoolExecutor()
 
 # MALPEDIA CLIENT
 _MALPEDIA_CLIENT = None
