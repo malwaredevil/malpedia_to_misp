@@ -647,15 +647,15 @@ def initGlobals():
         print("f(x) initGlobals: MISP_KEY, MISP_URL, AND/OR MALPEDIA KEY. EXITING")
         return(1)
 
-    print("f(x) initGlobals: TESTING CONNECTIVITY TO MISP")
-    iUUID = uuid.uuid4()
+    print("f(x) initGlobals: TESTING CONNECTIVITY TO MISP:", end='')
+
     try:
         # retVal = 0
         mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
-        result = mispDB.get_user( user=iUUID)
+        result = mispDB.get_user()
+        if result:
+            print("GOOD")
 
-        print("USER RETURNED: {}".format(result[0]['name']))
-        
     except Exception as e:
         print("f(x) initGlobals: ERROR: {}".format(e))
         print ("FAILED")
