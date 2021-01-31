@@ -656,6 +656,7 @@ def initGlobals():
         print("USER RETURNED: {}".format(result))
         
     except Exception as e:
+        print("f(x) initGlobals: ERROR: {}".format(e))
         print ("FAILED")
         return(1)
 
