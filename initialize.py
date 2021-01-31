@@ -644,31 +644,29 @@ def initGlobals():
         gv._MALPEDIA_KEY = os.getenv('MALPEDIA_KEY').replace("\'", "").replace("\"", "")
         print("f(x) initGlobals: KEYS SET:\n\tMISP KEY: {}\n\tMISP URL: {}\n\tMALPEDIA KEY: {}".format(gv._MISP_KEY, gv._MISP_URL, gv._MALPEDIA_KEY))
     else:
-        print("f(x) initGlobals: MISP_KEY, MISP_URL, AND/OR MALPEDIA KEY. EXITING")
+        print("f(x) initGlobals: INVALID MISP_KEY, MISP_URL, AND/OR MALPEDIA KEY. EXITING")
         return(1)
 
-    print("f(x) initGlobals: TESTING CONNECTIVITY TO MISP: ", end='')
+    print("f(x) initGlobals: TESTING CONNECTIVITY TO MISP:", end=' ')
     try:
         # retVal = 0
         mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
         result = mispDB.get_user()
         if result:
-            print("GOOD")
+            print("PASSED")
     except Exception as e:
-        print("f(x) initGlobals: ERROR: {}".format(e))
         print ("FAILED")
         return(1)
 
 
-    print("f(x) initGlobals: TESTING CONNECTIVITY TO MALPEDIA: ", end='')
+    print("f(x) initGlobals: TESTING CONNECTIVITY TO MALPEDIA:", end=' ')
     try:
         mpClient = Authenticate()
         result = mpClient.find_actor("booyah")
         print("ACTOR: {}".format(result))
 
     except Exception as e:
-        print("f(x) initGlobals: ERROR: {}".format(e))
-        print ("FAILED")
+        print ("PASSED")
         return(1)        
 
     # ADD MANUAL TAGS
