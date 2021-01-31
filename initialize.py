@@ -662,9 +662,9 @@ def initGlobals():
     print("f(x) initGlobals: TESTING CONNECTIVITY TO MALPEDIA:", end=' ')
     try:
         mpClient = Authenticate()
-        result = mpClient.find_actor("booyah")
-        print("ACTOR: {}".format(result))
-
+        result = mpClient.list_samples("win.sslmm")
+        print ("SAMPLES: {}".format(result))
+        print("GOOD")
     except Exception as e:
         print ("PASSED")
         return(1)        
