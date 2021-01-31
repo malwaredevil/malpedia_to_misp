@@ -654,7 +654,7 @@ def initGlobals():
         mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
         result = mispDB.get_user( user=iUUID, pythonify=True)
 
-        print("USER RETURNED: {}".format(result.name))
+        print("USER RETURNED: {}".format(result['name']))
         
     except Exception as e:
         print("f(x) initGlobals: ERROR: {}".format(e))
