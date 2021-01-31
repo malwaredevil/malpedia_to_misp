@@ -639,8 +639,8 @@ def stageActorMalwareMeta():
 
 def initGlobals():
     if os.getenv('MISP_KEY') and os.getenv("MISP_URL") and os.getenv("MALPEDIA_KEY"):
-        gv._MISP_KEY = os.getenv('MISP_KEY')
-        gv._MISP_URL = os.getenv('MISP_URL')
+        gv._MISP_KEY = os.getenv('MISP_KEY').replace("\'", "").replace("\"", "")
+        gv._MISP_URL = os.getenv('MISP_URL').replace("\'", "").replace("\"", "")
         gv._MALPEDIA_KEY = os.getenv('MALPEDIA_KEY').replace("\'", "").replace("\"", "")
         print("f(x) initGlobals: KEYS SET:\n\tMISP KEY: {}\n\tMISP URL: {}\n\tMALPEDIA KEY: {}".format(gv._MISP_KEY, gv._MISP_URL, gv._MALPEDIA_KEY))
     else:
