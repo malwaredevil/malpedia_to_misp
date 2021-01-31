@@ -636,7 +636,7 @@ def createMalware(iUUID, iUpdate=False):
 def uuidSearch (iUUID):
     try:
         retVal = 0
-        mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
+        mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT)
         kwargs = {"uuid" : iUUID}
         result = mispDB.search(controller='events', return_format='json', limit=1, **kwargs)
         retVal = int(len(result))
