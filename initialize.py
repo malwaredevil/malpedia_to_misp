@@ -652,7 +652,7 @@ def initGlobals():
     try:
         # retVal = 0
         mispDB = pm.ExpandedPyMISP(url=gv._MISP_URL, key=gv._MISP_KEY, ssl=gv._MISP_VERIFYCERT, debug=gv._DEBUG)
-        result = mispDB.get_user( user=iUUID, pythonify=True)
+        result = mispDB.get_user( user=iUUID)
 
         print("USER RETURNED: {}".format(result[0]['name']))
         
