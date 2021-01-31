@@ -286,8 +286,7 @@ def createActor(iUUID, iUpdate=False):
         # USED AS INCIDENT NAME
         myCommonName = myMeta["commonname"]
         event.info = "Threat Actor: " + myCommonName
-        if gv._DEBUG:
-            print("f(x) createActor: ACTOR COMMON NAME: {}".format(myCommonName))
+        print("f(x) createActor: ACTOR NAME: {}".format(myCommonName))
         
         # USED AS A TEXT ATTRIBUTE
         myDescription = myMeta["description"]
@@ -403,8 +402,9 @@ def createFamily(iUUID, iUpdate=False ):
         # USED AS INCIDENT NAME
         myCommonName = myMeta["commonname"]
         event.info = myCommonName
-        if gv._DEBUG:
-            print("f(x) createFamily: COMMON NAME: {}".format(myCommonName))
+        
+        print("f(x) createFamily: MALWARE NAME: {}".format(myCommonName))
+
         
         # USED AS A TEXT ATTRIBUTE
         myDescription = myMeta["description"]
@@ -508,6 +508,7 @@ def createPath(iUUID, iUpdate=False):
         myName = iPC_META["name"]
         event.extends_uuid = parentuuid
         event.info = myName
+        print("f(x) createPath: MALWARE PATH NAME: {}".format(myName))
 
         # GET TAGS FROM PARENT AND ADD TO THIS PATH
         myTags = db.get_set_all_tags(myUUID)
@@ -568,8 +569,8 @@ def createMalware(iUUID, iUpdate=False):
 
         event.info = name
 
-        if gv._DEBUG:
-            print("f(x) createMalware: EVENT NAME: {}".format(name))
+        
+        print("f(x) createMalware: MALWARE SAMPLE NAME: {}".format(name))
         
         # SET VERSION
         myVersion = iPC_META["version"]
