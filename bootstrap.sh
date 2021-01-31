@@ -198,7 +198,7 @@ export POSTGRES_PASSWORD=$_POSTGRES_PASSWORD_INPUT
 echo " "
 echo -e "${YELLOW}${BOLD}"
 source ~/.bashrc
-echo "[+] The following environment variables have been set. If you need to change them in the future edit the /etc/bash.bashrc file. Please copy them for your records:"
+echo "[+] The following environment variables have been set. If you need to change them in the future edit the /etc/bash.bashrc file. Please copy them for your records. Pausing for 30 seconds:"
 echo "    MISP_KEY=$MISP_KEY"
 echo "    MISP_URL=$MISP_URL"
 echo "    MALPEDIA_KEY=$MALPEDIA_KEY"
@@ -316,20 +316,4 @@ echo "[+] Starting Malpedia to MISP ingestion routine. The first time the contai
 echo -e  " ${NC}"
 cd /opt/m2m/dependencies/malpedia_to_misp
 python3 ./initialize.py
-
-echo " "
-echo -e "${YELLOW}${BOLD}"
-echo "***********************************************************************************"
-echo "**                MALPEDIA TO MISP INGESTOR SETUP                                **"
-echo "***********************************************************************************"
-echo "***********************************************************************************"
-echo "**        Setup complete. You can delete this directory. The                     **"
-echo "**        malpedia to misp project has been created in the                       **"
-echo "**        /opt/m2m/dependencies/malpedia_to_misp directory.                      **"
-echo "**        You can run it by executing either the initialize.py                   **"
-echo "**        or update.py files. Please read the documentation for more.            **" 
-echo "***********************************************************************************"
-echo "***********************************************************************************"
-# echo -e " ${NC}"
-echo "DEV MODE"
 exec "$@"
