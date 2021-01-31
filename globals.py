@@ -77,7 +77,7 @@ _MANUAL_TAGS = [
 
 
 # THREADING EXECUTOR
-_EXECUTOR = ThreadPoolExecutor(max_workers=20)
+_EXECUTOR = ThreadPoolExecutor()
 
 # LIST OF THREADS
 _THREAD_LIST = []
