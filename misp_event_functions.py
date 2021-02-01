@@ -90,7 +90,7 @@ def pushToMISP(event, iUpdate=False, mURL="", mKey="", mVerifycert="", mDebug=""
             print("f(x) pushToMISP() ERROR: {}".format(e))
         pass    
     finally:
-        print("pushToMISP: CREATED MISP EVENT: {}".format(event.info))
+        print("f(x) pushToMISP: CREATED MISP EVENT: {}".format(event.info))
         return True 
 
 
