@@ -119,7 +119,8 @@ _BLACKLISTED_FILES = [
     '9a81bd6f077e444e55fc8f89a862d60dffdb31c7cfba41849a6b2d045d70e65',
     'f9a81bd6f077e444e55fc8f89a862d60dffdb31c7cfba41849a6b2d045d70e65',
     '56d57a09e2bef6f6f2640a7f0b95e77da258e02538d88f7790b24394f1f2a568',
-    '06b077e31a6f339c4f3b1f61ba9a6a6ba827afe52ed5bed6a6bf56bf18a279ba_unpacked'
+    '06b077e31a6f339c4f3b1f61ba9a6a6ba827afe52ed5bed6a6bf56bf18a279ba_unpacked',
+    'a8229522e6a25e2830a395bc1c372e735252ef84f481aedfea70c0bf062bd59b_unpacked'
 ]
 
 # _BLACKLISTED_FILES = [
