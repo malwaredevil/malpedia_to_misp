@@ -157,10 +157,9 @@ def stageMalwareSpecimens():
         sys.exit(e)
 
 def build_actor_malware_tree(threat_actor):
-    print("f(x) build_actor_malware_tree: GETTING DATA FOR {}".format(threat_actor.upper()))
+    print("f(x) build_actor_malware_tree: STAGING DATA FOR {}".format(threat_actor.upper()))
     lastupdated = datetime.date.today()
     path_to_json = gv._MALPEDIA_OUTPUT + "actors/" + threat_actor + ".json"
-    print("f(x) build_actor_malware_tree: IMPORTING ACTOR: {}".format(threat_actor.upper()))
 
     # READ THE THREAT ACTOR JSON FILE
     gv._CURRENT_ACTOR_MITRE_GROUP_CODE = "NONE"
@@ -823,8 +822,7 @@ def stageMalwareFamilies():
 
 
         for family in malwareFamilySet:
-            if gv._DEBUG:
-                print("f(x) stageMalwareFamilies(): INGESTING FAMILY: {}".format(family))
+            print("f(x) stageMalwareFamilies(): STAGING DATA FOR FAMILY: {}".format(family))
             insertFamilyIntoDB(family)
 
 
@@ -1354,8 +1352,7 @@ def iterateStageAllFiles():
             malwareFamilies.append(malwareName.replace(".json", ""))
 
     for oFamily in malwareFamilies:
-        if gv._DEBUG:
-            print("f(x) iterateStageAllFiles: PROCESSING FAMILY SPECIMENS: {}".format(oFamily))
+        print("f(x) iterateStageAllFiles: STAGING DATA FOR SPECIMENS OF: {}".format(oFamily))
         stagePathsAndFiles(oFamily)
 
 
