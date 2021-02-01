@@ -624,8 +624,8 @@ def createMalware(iUUID, iUpdate=False):
     
         
         
-        gv._THREAD_LIST.append(uexecutor.submit(pushToMISPWithAttachment, event, myPath, iUpdate, gv._MISP_URL, gv._MISP_KEY, gv._MISP_VERIFYCERT, gv._DEBUG, fo , peo, seos))
-        # pushToMISPWithAttachment(event, myPath, iUpdate, gv._MISP_URL, gv._MISP_KEY, gv._MISP_VERIFYCERT, gv._DEBUG, fo , peo, seos)
+        # gv._THREAD_LIST.append(uexecutor.submit(pushToMISPWithAttachment, event, myPath, iUpdate, gv._MISP_URL, gv._MISP_KEY, gv._MISP_VERIFYCERT, gv._DEBUG, fo , peo, seos))
+        pushToMISPWithAttachment(event, myPath, iUpdate, gv._MISP_URL, gv._MISP_KEY, gv._MISP_VERIFYCERT, gv._DEBUG, fo , peo, seos)
 
     except Exception as e:
         exc_type, _, exc_tb = sys.exc_info()
