@@ -732,11 +732,10 @@ def stageThreatActors():
 def removeDuplicates(iUUID):
     try:
         countUUID = mef.uuidSearch(iUUID)
-        if countUUID != 0:
-            gv._UUIDS.remove(iUUID)
-            print("f(x) removeDuplicates: REMOVED DUPLICATE: {}".format(iUUID))
+        if countUUID == 0:
+            gv._UUIDS.append(iUUID)
         else:
-            print("f(x) removeDuplicates: LEFT: {}".format(iUUID))
+            print("f(x) removeDuplicates: REMOVED DUPLICATE: {}".format(iUUID))
         return True
     except Exception as e:
         print("f(x) removeDuplicates: ERROR: {}".format(e))
@@ -746,28 +745,42 @@ def removeDuplicates(iUUID):
 
 def pushNewEventsIntoMisp(iUUIDS, update=False):
     try:
+        gv._UUIDS = []
+
+        # ATTEMPT TO TRIM DOWN LIST IF THIS IS NOT AN UPDATE EVENT
+        x = 0
+        lenIUUIDS = len(iUUIDS)
         if update == False:
-            gv._UUIDS = iUUIDS
+          
             print("f(x) pushNewEventsIntoMisp: CHECKING AND REMOVING DUPLICATES.")
             for oUUID in iUUIDS:
+                x += 1
                 # removeDuplicates(oUUID["uuid"])
                 gv._THREAD_LIST.append(executor.submit(removeDuplicates, oUUID["uuid"]))
-                print("f(x) pushNewEventsIntoMisp: CHECKING: {}".format(oUUID["uuid"]))
+                print("f(x) pushNewEventsIntoMisp {}/{}: CHECKING: {}".format(x , lenIUUIDS, oUUID["uuid"]))
 
             iUUIDS = gv._UUIDS
+
+        else:
+            for oUUID in iUUIDS:
+                gv._UUIDS.append(oUUID["uuid"])
+
 
         cf.wait(gv._THREAD_LIST)
         gv._THREAD_LIST = [] 
 
         x = 0
-        for oUUID in iUUIDS:
+        lengvUUIDS = len(gv._UUIDS)
+        for oUUID in gv._UUIDS:
             x += 1
+            # HAVE TO GET COUNT IN CASE THIS IS AN UPDATE EVENT TO DETERMINE IF YOU NEED TO UPDATE OR INSERT
             countUUID = mef.uuidSearch(oUUID["uuid"])
             
             # UUID NOT FOUND SO CREATE IT
             if countUUID == 0:
-                if gv._DEBUG:
-                    print("f(x) pushNewEventsIntoMisp {}/{}: CREATING MISP EVENT FOR UUID: {}".format(x, len(iUUIDS), oUUID["uuid"]))
+                if gv._DEBUG == False:
+                    #TODO: CHANGE ABOVE BACK TO TRUE
+                    print("f(x) pushNewEventsIntoMisp {}/{}: CREATING MISP EVENT FOR UUID: {}".format(x, lengvUUIDS, oUUID["uuid"]))
                 # CREATE A MISP EVENT
                 mef.createIncident(oUUID["uuid"],  False)
  
@@ -775,11 +788,12 @@ def pushNewEventsIntoMisp(iUUIDS, update=False):
             # UUID IS FOUND SO SKIP IT SINCE THIS IS THE FIRST RUN
             else:
                 if update == True:
-                    if gv._DEBUG:
-                        print("f(x) pushNewEventsIntoMisp {}/{}: UPDATING MISP EVENT FOR UUID: {}".format(x, len(iUUIDS), oUUID["uuid"]))
+                    if gv._DEBUG == False:
+                        #TODO: CHANGE ABOVE BACK TO TRUE
+                        print("f(x) pushNewEventsIntoMisp {}/{}: UPDATING MISP EVENT FOR UUID: {}".format(x, lengvUUIDS, oUUID["uuid"]))
                     mef.createIncident(oUUID["uuid"], True)
                 else:
-                    print("f(x) pushNewEventsIntoMisp {}/{}: DUPLICATE EVENT DETECTED. UUID: {}".format(x, len(iUUIDS),oUUID["uuid"]))
+                    print("f(x) pushNewEventsIntoMisp {}/{}: DUPLICATE EVENT DETECTED. UUID: {}".format(x, lengvUUIDS,oUUID["uuid"]))
             
         
 
