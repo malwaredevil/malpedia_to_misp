@@ -729,13 +729,14 @@ def stageThreatActors():
         build_actor_malware_tree(actor)
 
 
-def removeDuplicates(iUUID):
+def removeDuplicates(iUUID, x, lenList):
     try:
         countUUID = mef.uuidSearch(iUUID)
         if countUUID == 0:
+            print("f(x) removeDuplicates: FOUND UNIQUE UUID {}/{}: {}".format(x, lenList, iUUID))
             gv._UUIDS.append(iUUID)
         else:
-            print("f(x) removeDuplicates: REMOVED DUPLICATE: {}".format(iUUID))
+            print("f(x) removeDuplicates: REMOVED DUPLICATE UUID {}/{}: {}".format(x, lenList, iUUID))
         return True
     except Exception as e:
         print("f(x) removeDuplicates: ERROR: {}".format(e))
@@ -757,14 +758,17 @@ def pushNewEventsIntoMisp(iUUIDS, update=False):
             for oUUID in iUUIDS:
                 x += 1
                 # removeDuplicates(oUUID["uuid"])
-                gv._THREAD_LIST.append(executor.submit(removeDuplicates, oUUID["uuid"]))
-                print("f(x) pushNewEventsIntoMisp {}/{}: CHECKING: {}".format(x , lenIUUIDS, oUUID["uuid"]))
+                gv._THREAD_LIST.append(executor.submit(removeDuplicates, oUUID["uuid"], x, lenIUUIDS))
+                # print("f(x) pushNewEventsIntoMisp {}/{}: CHECKING: {}".format(x , lenIUUIDS, oUUID["uuid"]))
 
             oUUIDs = gv._UUIDS
 
         else:
+            x = 0
             for oUUID in iUUIDS:
+                x += 1
                 gv._UUIDS.append(oUUID["uuid"])
+                print("f(x) pushNewEventsIntoMisp: UNIQUE UUID ADDED {}/{}: {}".format(x, x, oUUID["uuid"]))
 
         oUUIDs = gv._UUIDS
         gv._UUIDS = []
