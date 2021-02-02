@@ -746,6 +746,7 @@ def removeDuplicates(iUUID):
 def pushNewEventsIntoMisp(iUUIDS, update=False):
     try:
         gv._UUIDS = []
+        oUUIDs = []
 
         # ATTEMPT TO TRIM DOWN LIST IF THIS IS NOT AN UPDATE EVENT
         x = 0
@@ -759,30 +760,31 @@ def pushNewEventsIntoMisp(iUUIDS, update=False):
                 gv._THREAD_LIST.append(executor.submit(removeDuplicates, oUUID["uuid"]))
                 print("f(x) pushNewEventsIntoMisp {}/{}: CHECKING: {}".format(x , lenIUUIDS, oUUID["uuid"]))
 
-            iUUIDS = gv._UUIDS
+            oUUIDs = gv._UUIDS
 
         else:
             for oUUID in iUUIDS:
                 gv._UUIDS.append(oUUID["uuid"])
 
-
+        oUUIDs = gv._UUIDS
+        gv._UUIDS = []
         cf.wait(gv._THREAD_LIST)
         gv._THREAD_LIST = [] 
 
         x = 0
-        lengvUUIDS = len(gv._UUIDS)
-        for oUUID in gv._UUIDS:
+        lengvUUIDS = len(oUUIDs)
+        for oUUID in oUUIDs:
             x += 1
             # HAVE TO GET COUNT IN CASE THIS IS AN UPDATE EVENT TO DETERMINE IF YOU NEED TO UPDATE OR INSERT
-            countUUID = mef.uuidSearch(oUUID["uuid"])
+            countUUID = mef.uuidSearch(oUUID)
             
             # UUID NOT FOUND SO CREATE IT
             if countUUID == 0:
                 if gv._DEBUG == False:
                     #TODO: CHANGE ABOVE BACK TO TRUE
-                    print("f(x) pushNewEventsIntoMisp {}/{}: CREATING MISP EVENT FOR UUID: {}".format(x, lengvUUIDS, oUUID["uuid"]))
+                    print("f(x) pushNewEventsIntoMisp {}/{}: CREATING MISP EVENT FOR UUID: {}".format(x, lengvUUIDS, oUUID))
                 # CREATE A MISP EVENT
-                mef.createIncident(oUUID["uuid"],  False)
+                mef.createIncident(oUUID,  False)
  
                 # threads.append(eventThread)
             # UUID IS FOUND SO SKIP IT SINCE THIS IS THE FIRST RUN
@@ -790,10 +792,10 @@ def pushNewEventsIntoMisp(iUUIDS, update=False):
                 if update == True:
                     if gv._DEBUG == False:
                         #TODO: CHANGE ABOVE BACK TO TRUE
-                        print("f(x) pushNewEventsIntoMisp {}/{}: UPDATING MISP EVENT FOR UUID: {}".format(x, lengvUUIDS, oUUID["uuid"]))
-                    mef.createIncident(oUUID["uuid"], True)
+                        print("f(x) pushNewEventsIntoMisp {}/{}: UPDATING MISP EVENT FOR UUID: {}".format(x, lengvUUIDS, oUUID))
+                    mef.createIncident(oUUID, True)
                 else:
-                    print("f(x) pushNewEventsIntoMisp {}/{}: DUPLICATE EVENT DETECTED. UUID: {}".format(x, lengvUUIDS,oUUID["uuid"]))
+                    print("f(x) pushNewEventsIntoMisp {}/{}: DUPLICATE EVENT DETECTED. UUID: {}".format(x, lengvUUIDS,oUUID))
             
         
 
