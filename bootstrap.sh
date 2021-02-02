@@ -198,7 +198,7 @@ export POSTGRES_PASSWORD=$_POSTGRES_PASSWORD_INPUT
 echo " "
 echo -e "${YELLOW}${BOLD}"
 source ~/.bashrc
-echo "[+] The following environment variables have been set. If you need to change them in the future edit the /etc/bash.bashrc file. Please copy them for your records. Pausing for 30 seconds:"
+echo "[+] The following environment variables have been set. If you need to change them in the future edit the /etc/bash.bashrc file. Please copy them for your records. Pausing for 10 seconds:"
 echo "    MISP_KEY=$MISP_KEY"
 echo "    MISP_URL=$MISP_URL"
 echo "    MALPEDIA_KEY=$MALPEDIA_KEY"
@@ -209,7 +209,7 @@ echo "    POSTGRES_USER=$POSTGRES_USER"
 echo "    POSTGRES_PASSWORD=$POSTGRES_PASSWORD"
 echo -e  " ${NC}"
 
-sleep  30s
+sleep  10s
 # echo " "
 # echo -e "${YELLOW}${BOLD}"
 # echo "[+] Installing requirements." 
