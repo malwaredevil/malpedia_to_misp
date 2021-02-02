@@ -770,13 +770,18 @@ def pushNewEventsIntoMisp(iUUIDS, update=False):
                 gv._UUIDS.append(oUUID["uuid"])
                 print("f(x) pushNewEventsIntoMisp: UNIQUE UUID ADDED {}/{}: {}".format(x, x, oUUID["uuid"]))
 
-        oUUIDs = gv._UUIDS
-        gv._UUIDS = []
+        
+       
+        
         cf.wait(gv._THREAD_LIST)
         gv._THREAD_LIST = [] 
 
+        oUUIDs = gv._UUIDS
+        gv._UUIDS = []
+        
         x = 0
         lengvUUIDS = len(oUUIDs)
+        print("f(x) pushNewEventsIntoMisp: PROCESSING {} EVENTS".format(lengvUUIDS))
         for oUUID in oUUIDs:
             x += 1
             # HAVE TO GET COUNT IN CASE THIS IS AN UPDATE EVENT TO DETERMINE IF YOU NEED TO UPDATE OR INSERT
