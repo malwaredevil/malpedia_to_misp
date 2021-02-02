@@ -730,13 +730,15 @@ def stageThreatActors():
 
 def pushNewEventsIntoMisp(iUUIDS, update=False):
     try:
+        x = 0
         for oUUID in iUUIDS:
+            x += 1
             countUUID = mef.uuidSearch(oUUID["uuid"])
             
             # UUID NOT FOUND SO CREATE IT
             if countUUID == 0:
                 if gv._DEBUG:
-                    print("f(x) pushNewEventsIntoMisp:  CREATING MISP EVENT FOR UUID: {}".format(oUUID["uuid"]))
+                    print("f(x) pushNewEventsIntoMisp {}/{}: CREATING MISP EVENT FOR UUID: {}".format(x, len(iUUIDS), oUUID["uuid"]))
                 # CREATE A MISP EVENT
                 mef.createIncident(oUUID["uuid"],  False)
  
@@ -745,10 +747,10 @@ def pushNewEventsIntoMisp(iUUIDS, update=False):
             else:
                 if update == True:
                     if gv._DEBUG:
-                        print("f(x) pushNewEventsIntoMisp:  UPDATING MISP EVENT FOR UUID: {}".format(oUUID["uuid"]))
+                        print("f(x) pushNewEventsIntoMisp {}/{}: UPDATING MISP EVENT FOR UUID: {}".format(x, len(iUUIDS), oUUID["uuid"]))
                     mef.createIncident(oUUID["uuid"], True)
                 else:
-                    print("f(x) pushNewEventsIntoMisp: DUPLICATE EVENT DETECTED. UUID: {}".format(oUUID["uuid"]))
+                    print("f(x) pushNewEventsIntoMisp {}/{}: DUPLICATE EVENT DETECTED. UUID: {}".format(x, len(iUUIDS), oUUID["uuid"]))
             
         
 
