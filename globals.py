@@ -77,13 +77,13 @@ _MANUAL_TAGS = [
 
 
 # THREADING EXECUTOR
-_EXECUTOR = ThreadPoolExecutor()
+_EXECUTOR = ThreadPoolExecutor(max_workers=20)
 
 # LIST OF THREADS
 _THREAD_LIST = []
 
 # THREADING EXECUTOR FOR UPLOAD. HAD TO THROTTLE
-_UPLOAD_EXECUTOR = ThreadPoolExecutor()
+_UPLOAD_EXECUTOR = ThreadPoolExecutor(max_workers=20)
 
 # MALPEDIA CLIENT
 _MALPEDIA_CLIENT = None
