@@ -732,9 +732,11 @@ def stageThreatActors():
 def removeDuplicates(iUUID):
     try:
         countUUID = mef.uuidSearch(iUUID)
-        if countUUID > 0:
+        if countUUID != 0:
             gv._UUIDS.remove(iUUID)
-            print("fx(x) removeDuplicates: REMOVED DUPLICATE: {}".format(iUUID))
+            print("f(x) removeDuplicates: REMOVED DUPLICATE: {}".format(iUUID))
+        else:
+            print("f(x) removeDuplicates: LEFT: {}".format(iUUID))
         return True
     except Exception as e:
         print("f(x) removeDuplicates: ERROR: {}".format(e))
@@ -750,7 +752,7 @@ def pushNewEventsIntoMisp(iUUIDS, update=False):
             for oUUID in iUUIDS:
                 # removeDuplicates(oUUID["uuid"])
                 gv._THREAD_LIST.append(executor.submit(removeDuplicates, oUUID["uuid"]))
-                print("fx")
+                print("f(x) pushNewEventsIntoMisp: CHECKING: {}".format(oUUID["uuid"]))
 
             iUUIDS = gv._UUIDS
 
