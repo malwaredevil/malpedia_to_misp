@@ -728,8 +728,35 @@ def stageThreatActors():
             print("INGESTING ACTOR INTO DATABASE: {}".format(actor))
         build_actor_malware_tree(actor)
 
+
+def removeDuplicates(iUUID):
+    try:
+        countUUID = mef.uuidSearch(iUUID)
+        if countUUID > 0:
+            gv._UUIDS.remove(iUUID)
+            print("fx(x) removeDuplicates: REMOVED DUPLICATE: {}".format(iUUID))
+        return True
+    except Exception as e:
+        print("f(x) removeDuplicates: ERROR: {}".format(e))
+        sys.exit(e)
+  
+
+
 def pushNewEventsIntoMisp(iUUIDS, update=False):
     try:
+        if update == False:
+            gv._UUIDS = iUUIDS
+            print("f(x) pushNewEventsIntoMisp: CHECKING AND REMOVING DUPLICATES.")
+            for oUUID in iUUIDS:
+                # removeDuplicates(oUUID["uuid"])
+                gv._THREAD_LIST.append(executor.submit(removeDuplicates, oUUID["uuid"]))
+                print("fx")
+
+            iUUIDS = gv._UUIDS
+
+        cf.wait(gv._THREAD_LIST)
+        gv._THREAD_LIST = [] 
+
         x = 0
         for oUUID in iUUIDS:
             x += 1
@@ -750,7 +777,7 @@ def pushNewEventsIntoMisp(iUUIDS, update=False):
                         print("f(x) pushNewEventsIntoMisp {}/{}: UPDATING MISP EVENT FOR UUID: {}".format(x, len(iUUIDS), oUUID["uuid"]))
                     mef.createIncident(oUUID["uuid"], True)
                 else:
-                    print("f(x) pushNewEventsIntoMisp {}/{}: DUPLICATE EVENT DETECTED. UUID: {}".format(x, len(iUUIDS), oUUID["uuid"]))
+                    print("f(x) pushNewEventsIntoMisp {}/{}: DUPLICATE EVENT DETECTED. UUID: {}".format(x, len(iUUIDS),oUUID["uuid"]))
             
         
 

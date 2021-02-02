@@ -31,6 +31,7 @@ _MALPEDIA_KEY = ''
 
 
 # THE BELOW CAN LARGELY BE IGNORED. ONLY MODIFY IF YOU KNOW WHAT YOU ARE DOING
+_UUIDS = []
 
 # MALPEDIA URL
 _MALPEDIA_URL = "https://malpedia.caad.fkie.fraunhofer.de/"
