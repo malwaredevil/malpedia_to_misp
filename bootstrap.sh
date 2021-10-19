@@ -45,9 +45,9 @@ while [[ $# -gt 0 ]]; do
             _MISP_URL_INPUT="$1";  shift;;
         "-u"| "--malpedia-key" ) 
             _MALPEDIA_KEY_INPUT=$1;  shift;;
-        "-l"| "--postgres-server" ) 
+        "0.0.0.0" ) 
             _POSTGRES_HOST_INPUT="$1";  shift;;
-        "-t"| "--postgres-host" ) 
+        "5432" ) 
             _POSTGRES_PORT_INPUT="$1";  shift;;
         "-r"| "--postgres-user" ) 
             _POSTGRES_USER_INPUT="$1";  shift;;
