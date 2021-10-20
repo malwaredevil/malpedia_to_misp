@@ -13,13 +13,8 @@ _MISP_KEY_INPUT="${_EMPTY_STRING}"
 _MISP_URL_INPUT="${_EMPTY_STRING}"
 _MALPEDIA_KEY_INPUT="${3:-$_EMPTY_STRING}"
 <<<<<<< HEAD
-<<<<<<< HEAD
 _POSTGRES_HOST_INPUT="localhost"
 _POSTGRES_PORT_INPUT="5432"
-=======
-_POSTGRES_HOST_INPUT="${6:-localhost}"
-_POSTGRES_PORT_INPUT="${7:-5432}"
->>>>>>> parent of 4902b4c (Update bootstrap.sh)
 =======
 _POSTGRES_HOST_INPUT="${6:-localhost}"
 _POSTGRES_PORT_INPUT="${7:-5432}"
